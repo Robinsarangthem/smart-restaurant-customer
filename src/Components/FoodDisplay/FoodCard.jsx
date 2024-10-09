@@ -10,6 +10,7 @@ import { Button } from '../ui/button'
 function FoodCard({ product }) {
 	const { _id, image, description, name, price, quantity } = product
 	console.log(image)
+	console.log('hello swap')
 	const { addToCart, deleteCart, cart } = useStore()
 	const driveImage = `https://drive.google.com/thumbnail?id=${image}&sz=wP500-h500`
 
