@@ -42,7 +42,7 @@ const router = createBrowserRouter(
 			<Route path='*' element={<PageNotFound />} />
 			<Route>
 				<Route path='/tables/:id' element={<Tables />} />
-				<Route path='/qr_scanner' element={<WelcomePage />} />
+				<Route path='/landing' element={<WelcomePage />} />
 			</Route>
 		</Route>
 	)

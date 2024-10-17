@@ -40,11 +40,11 @@ const FoodDisplay = ({ category }) => {
 				{category === 'All' ? 'Menu ' : <p> {category}</p>}
 			</h1>
 
-			<div className=' place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5  '>
+			<div className=' place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-5	 lg:gap-5 gap-4 p-2 mobile:p-5  '>
 				{productsWithCategory?.map((product) => (
 					<div
 						key={product._id}
-						className='bg-white w-full h-full  drop-shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl'
+						className='bg-white w-full h-full shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl'
 					>
 						<FoodCard product={product} />
 					</div>

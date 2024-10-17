@@ -9,9 +9,6 @@ import PropagateLoader from 'react-spinners/PropagateLoader'
 import { useFoodList } from '../../Components/hooks/useFoodList'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { Loader2 } from 'lucide-react'
-import { ClipLoader } from 'react-spinners'
-import useAuth from '@/Components/hooks/useAuth'
 
 function Cart() {
 	const { cart, clearCart } = useStore()
@@ -35,7 +32,6 @@ function Cart() {
 	})
 	const orders = orderlist?.data?.orders || []
 	const totalOrderLength = orders.length === 0
-	console.log(orders)
 
 	const handlerPayment = () => {
 		const options = {

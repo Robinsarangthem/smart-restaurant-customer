@@ -27,7 +27,7 @@ export default function Logout() {
 			setIsAuthenticated(false)
 			setToken(null)
 
-			navigate('/qr_scanner', { replace: true })
+			navigate('/landing', { replace: true })
 		} catch (error) {
 			error.message
 		}

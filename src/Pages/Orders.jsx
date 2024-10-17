@@ -19,7 +19,6 @@ import { socket } from '@/Components/socket/socket'
 const Orders = () => {
 	const navigate = useNavigate()
 	const { state } = useLocation()
-	console.log('orderId', state)
 
 	useEffect(() => {
 		socket.emit('newOrder', 'test')
@@ -31,7 +30,6 @@ const Orders = () => {
 		const response = await Axios.post('/api/pay/cash', {
 			orderId: state._id,
 		})
-		console.log(response)
 		if (response?.data.success === true) {
 			navigate('/order_status', { replace: true })
 		}
@@ -46,7 +44,6 @@ const Orders = () => {
 		const { data } = await Axios.post(`/api/pay/newPayment`, {
 			orderId: state._id,
 		})
-		console.log('invoice', data)
 
 		const options = {
 			key: import.meta.VITE_APP_RAZORPAYID, // Enter the Key ID generated from the Dashboard
@@ -151,7 +148,7 @@ const Orders = () => {
 		<div className='h-[100svh] overflow-hidden'>
 			{hasFoodItems ? (
 				<>
-					<h2 className='border-[1px] py-2 rounded-md text-center font-medium border-slate-900 mx-[20px]'>
+					<h2 className='border-[1px] mt-3 py-2 rounded-md text-center font-medium border-slate-900 mx-[20px]'>
 						Payment Mode
 					</h2>
 					<div className='mt-[50px]'>

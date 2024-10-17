@@ -4,6 +4,8 @@ import Categories from '../Components/categories/Categories'
 import Search from '@/Element/Search'
 import { useQuery } from '@tanstack/react-query'
 import { Axios } from '@/utils/axiosSetup'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 function Home() {
 	const [category, setCategory] = useState('All')
 
@@ -16,14 +18,13 @@ function Home() {
 		queryKey: ['category'],
 		queryFn: fetchingCategory,
 	})
+	console.log(categoryList)
 
 	return (
 		<main>
 			<section>
 				<Search />
-				{/* <form>
-					<input onChange={handleOnChange} type="search" name="" id="" />
-				</form> */}
+
 				<div>
 					<Categories
 						category={category}

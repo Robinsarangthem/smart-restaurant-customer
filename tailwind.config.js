@@ -33,6 +33,28 @@ module.exports = {
 		},
 		extend: {
 			keyframes: {
+				slideLeftFade: {
+					'0%': {
+						transform: 'translateX(100%)',
+						opacity: '0',
+					},
+					'100%': {
+						transform: 'translateX(0)',
+						opacity: '1',
+					},
+				},
+
+				slideRightFade: {
+					'0%': {
+						transform: ' translateX(-100%)',
+						opacity: '0',
+					},
+					'100%': {
+						transform: 'translateX(0)',
+						opacity: '1',
+					},
+				},
+
 				'fade-in-down': {
 					'0%': {
 						opacity: '0',
@@ -63,6 +85,8 @@ module.exports = {
 				},
 			},
 			animation: {
+				'animate-slideLeftFade': 'slideLeftFade 0.5s ease forwards',
+				'animate-slideRightFade': 'slideRightFade 0.5s ease forwards',
 				'fade-in-down': 'fade-in-down 1s ease-out',
 				'fade-out-up': 'fade-in-down 1s ease-out',
 				'accordion-down': 'accordion-down 0.2s ease-out',

@@ -11,8 +11,6 @@ function FoodCard({ product }) {
 	const { _id, image, description, name, price, quantity } = product
 	console.log(image)
 	const { addToCart, deleteCart, cart } = useStore()
-	const driveImage = `https://drive.google.com/thumbnail?id=${image}&sz=wP500-h500`
-
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
 	return (
 		<div className=' p-2 '>
@@ -21,7 +19,7 @@ function FoodCard({ product }) {
 					<img
 						className=' w-full h-48  object-cover rounded-lg drop-shadow-md'
 						// src={`${baseURL}${image}`}
-						src={driveImage}
+						src={image}
 						alt={name}
 						width={200}
 						height={200}
