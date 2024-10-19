@@ -1,19 +1,11 @@
 import PropagateLoader from 'react-spinners/PropagateLoader'
 import { Link, useSearchParams } from 'react-router-dom'
 import Search from '../../Element/Search'
-import Tables from '../Tables/Tables'
 import { useFoodList } from '../hooks/useFoodList'
 import FoodCard from './FoodCard'
-// import { useFoodStore } from '../context'
 const FoodDisplay = ({ category }) => {
-	const { data, isLoading, error } = useFoodList()
-	if (isLoading) {
-		return (
-			<div className='flex justify-center min-h-[30svh] items-center  text-blue-500'>
-				<PropagateLoader color='blue' />
-			</div>
-		)
-	}
+	const { data, error } = useFoodList()
+
 	if (error) {
 		return (
 			<div>
@@ -44,7 +36,7 @@ const FoodDisplay = ({ category }) => {
 				{productsWithCategory?.map((product) => (
 					<div
 						key={product._id}
-						className='bg-white w-full h-full shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl'
+						className='bg-white w-full h-full shadow-md rounded-lg overflow-hidden md:transition-transform transform md:hover:scale-105 hover:shadow-xl'
 					>
 						<FoodCard product={product} />
 					</div>

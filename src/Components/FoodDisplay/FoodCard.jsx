@@ -9,7 +9,6 @@ import { Button } from '../ui/button'
 
 function FoodCard({ product }) {
 	const { _id, image, description, name, price, quantity } = product
-	console.log(image)
 	const { addToCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
 	return (
