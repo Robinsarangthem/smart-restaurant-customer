@@ -158,11 +158,6 @@ module.exports = {
 						display: 'none',
 					},
 				},
-				'.scroller[data-animated="true"]': {
-					'	&::-webkit-mask':
-						'linear-gradient(90deg, transparent , white 5% , white 95% ,transparent)',
-					mask: 'linear-gradient(90deg, transparent, white 5%, white 95%, transparent)',
-				},
 			})
 		},
 		require('tailwindcss-animate'),
