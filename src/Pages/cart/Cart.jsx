@@ -5,7 +5,6 @@ import CartEmpty from './components/CartEmpty'
 import CartPage from './components/CartPage'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Axios } from '../../utils/axiosSetup'
-import PropagateLoader from 'react-spinners/PropagateLoader'
 import { useFoodList } from '../../Components/hooks/useFoodList'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -111,44 +110,32 @@ function Cart() {
 						: 'md:flex md:justify-between md:mx-10'
 				}
 			>
-				<div className='w-full  md:min-h-[20vh] md:mb-10 sm:rounded-lg '>
-					<h1
-						className='text-center text-2xl mt-4 font-sans font-semibold
-					'
-					>
-						My Cart
-					</h1>
-					<div className=' text-md md:text-xl text-center  justify-center flex mt-4 pb-4'>
-						<span className='bg-slate-100 rounded-lg px-8 py-2 md:py-3 md:px10 '>
-							<i className='bi bi-cart3 px-3 text-lg md:text-xl'></i>
-							You have
-							<span className='text-red-700 font-semibold text-lg px-2'>
-								{cart.length}
-							</span>
-							items in your cart
-						</span>
-					</div>
-					<div className=' md:w-[90%]  grid    mt-3 md:mt-0'>
-						{cart.map((item, i) => {
-							const cartItem = cart.find(
-								(cartItem) => cartItem._id === item._id
-							)
-							return cartItem ? <CartPage key={i} item={cartItem} /> : null
-						})}
+				<div className='container mx-auto px-4 py-8'>
+					<h1 className='text-2xl font-bold mb-6'>Your Cart</h1>
+					<div className='lg:flex lg:space-x-8'>
+						<div className='lg:w-2/3 grid gap-3'>
+							{cart.map((item, i) => {
+								const cartItem = cart.find(
+									(cartItem) => cartItem._id === item._id
+								)
+								return cartItem ? <CartPage key={i} item={cartItem} /> : null
+							})}
+						</div>
+
+						{!cart.length ? (
+							<CartEmpty />
+						) : (
+							<PlaceOrder
+								getTotalAmount={getTotalAmount}
+								cart={cart}
+								handleOrderCreated={handleOrderCreated}
+								isPending={isPending}
+								totalOrderLength={totalOrderLength}
+								clearCart={clearCart}
+							/>
+						)}
 					</div>
 				</div>
-				{!cart.length ? (
-					<CartEmpty />
-				) : (
-					<PlaceOrder
-						getTotalAmount={getTotalAmount}
-						cart={cart}
-						handleOrderCreated={handleOrderCreated}
-						isPending={isPending}
-						totalOrderLength={totalOrderLength}
-						clearCart={clearCart}
-					/>
-				)}
 			</div>
 		</div>
 	)

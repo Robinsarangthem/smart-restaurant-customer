@@ -23,7 +23,6 @@ function Home() {
 		queryKey: ['category'],
 		queryFn: fetchingCategory,
 	})
-	console.log(categoryList)
 
 	return (
 		<main>

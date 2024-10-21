@@ -94,6 +94,18 @@ module.exports = {
 			},
 
 			colors: {
+				customBlue: '#98BDFF',
+				customDarkblue: '#4B49AC',
+				customRed: '#B20D30',
+				customPurple: '#797BE9',
+				customOrange: '#F3797E',
+				customGreen: '#3F784C',
+				customThistle: '#D5C6E0',
+				customSilver: '#E1DEE9',
+				customGray: ' #00bcd4',
+				customWhite: '#FFFFFF',
+				customBlack: '#000000',
+				deeppurple: '#1c2938',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

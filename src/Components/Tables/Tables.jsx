@@ -52,6 +52,7 @@ export default function Tables() {
 			}
 		},
 		onSuccess: (data) => {
+			console.log(data)
 			if (data?.success === true && data?.token === null) {
 				setIsSentOTP(true)
 			} else if (data?.success === true && data?.token !== null) {
@@ -93,7 +94,7 @@ export default function Tables() {
 					<div className=' pb-[50px]'>
 						<h2
 							className=' text-3xl bg-gradient-to-br bg- w-max text-transparent bg-clip-text from-orange-500 to-orange-700 drop-shadow-md
-					 font-bold tracking-wide'
+						font-bold tracking-wide'
 						>
 							Welcome!
 						</h2>
@@ -111,14 +112,6 @@ export default function Tables() {
 								</div>
 							) : (
 								<div className='flex flex-col gap-[1em]'>
-									<div className='flex flex-col gap-3 text-muted-foreground bg-white px-2 py-[0.5em] rounded-lg'>
-										<CustomLabel isRequired> Username </CustomLabel>
-										<input
-											type='text'
-											name='name'
-											className='border text-2xl rounded p-1 w-full min-w-0'
-										/>
-									</div>
 									<div className='grid grid-cols-[1fr_5fr] shadow-xl overflow-clip items-center bg-white rounded-lg'>
 										<CountryCode />
 										<div className='grid gap-1 p-2'>

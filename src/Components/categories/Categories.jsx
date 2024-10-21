@@ -81,7 +81,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 			</span>
 			<div className='scroller no-scrollbar overflow-hidden px-[0px]'>
 				<Slider {...settings}>
-					{categoryList?.data?.list.map((menu, index) => (
+					{categoryList?.list.map((menu, index) => (
 						<div key={index} className='flex items-center justify-center '>
 							<li
 								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 transition-transform duration-500 ease-in-out ${

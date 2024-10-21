@@ -28,7 +28,7 @@ function Layout() {
 		<>
 			<ScrollToTop />
 			<Header />
-			<main className='h-[100svh] bg-slate-200 overflow-auto pt-[3rem]  '>
+			<main className='h-[100svh] bg-slate-200 overflow-auto pt-[5rem]  '>
 				<Outlet />
 			</main>
 		</>
