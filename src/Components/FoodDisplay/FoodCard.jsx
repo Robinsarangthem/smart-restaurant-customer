@@ -26,21 +26,21 @@ function FoodCard({ product }) {
 				</div>
 			</Link>
 			{/* in card details name and description */}
-			<div className='p-1 mobile:p-2 md:p-3 flex flex-col justify-between '>
-				<div className='flex flex-col '>
-					<h2 className='text-lg md:text-xl font-semibold capitalize  text-gray-800 drop-shadow-md min-w-[140px] min-h-[50px]'>
-						{name}
-					</h2>
-					<p className='text-[13px] md:text-base text-slate-500 h-20 '>
-						{description.substring(0, 60)}...
-					</p>
-				</div>
+			<div className='p-1 mobile:p-2 md:p-3 grid grid-rows-2 justify-between '>
+				{/* name and description  */}
+				{/* <div className='flex flex-col '> */}
+				<h2 className='text-lg md:text-xl  font-medium capitalzize  text-gray-800 drop-shadow-md '>
+					{name}
+				</h2>
+				<p className='text-[13px] md:text-base text-slate-500 h-[60px] '>
+					{description.substring(0, 60)}...
+				</p>
+				{/* </div> */}
+				{/* end */}
 				{/* price and add items */}
-				<div className='flex flex-row  items-center justify-between mt-4 '>
+				<div className='grid grid-cols-2 	place-items-center gap-2 md:justify-items-start '>
 					{/* Minimum width for the price tag */}
-					<p className='text-sm mobile:md md:text-lg font-semibold text-red-500 '>
-						₹ <span>{price}</span>
-					</p>
+					{/* <p className='text-sm mobile:md md:text-lg font-semibold text-red-500 '> */}
 
 					{/* Minimum width for the button */}
 					{isAlreadyAddedToCart ? (
@@ -60,11 +60,14 @@ function FoodCard({ product }) {
 								toast.success('Added to cart')
 							}}
 							type='button'
-							className='bg-blue-500 hover:bg-blue-600 text-white  rounded-md shadow-md min-w-[50px] mobile:min-w-[100px]'
+							className='bg-customPurple hover:bg-customDarkblue text-white  rounded-lg shadow-md min-w-[50px] mobile:min-w-[100px]'
 						>
 							Add Item
 						</Button>
 					)}
+					<span className='text-sm mobile:md drop-shadow-md md:text-lg font-semibold text-customPurple'>
+						₹ {price}
+					</span>
 				</div>
 			</div>
 		</div>
