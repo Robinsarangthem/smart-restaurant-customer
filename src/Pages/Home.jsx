@@ -15,7 +15,7 @@ function Home() {
 	const [category, setCategory] = useState('All')
 
 	const fetchingCategory = async () => {
-		const response = await Axios.get('api/category/list')
+		const response = await Axios.get('/api/category/list')
 		return response.data
 	}
 
