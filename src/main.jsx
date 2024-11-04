@@ -31,7 +31,8 @@ const router = createBrowserRouter(
 		<Route element={<RootLayout />}>
 			{/* <Route element={<ProtectedRoute />}> */}
 			<Route element={<Layout />}>
-				<Route index element={<Home />} />
+				<Route path='/' element={<Home />} />
+				<Route path=':category' element={<Home />} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='food/:foodId' element={<FoodDetail />} />
 				<Route path='/orders' element={<Orders />} />

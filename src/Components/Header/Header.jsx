@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from '../context'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 // import Search from '../../Element/Search'
-import Logo from '../../assets/Images/Chef-restaurant-logo-illustrations-template-on-transparent-background-PNG.png'
+import Logo from '../../assets/Images/Achaathak__3_-removebg-preview.png'
 
 import table from '../../../src/assets/Images/coffee-table.png'
 
@@ -12,7 +12,7 @@ import Logout from '../logout/Logout'
 import Hamburger from 'hamburger-react'
 
 function Header() {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 
 	const [isToggle, setIsToggle] = useState(false)
 	const { cart, search, setSearch } = useStore()
@@ -26,8 +26,8 @@ function Header() {
 	}, [])
 	//
 	return (
-		<div className='w-full fixed z-10'>
-			<div className=' bg-gray-50  h-16 flex justify-between md:justify-around mx-auto px-[10px] md:px-8 items-center shadow-lg md:max-w-full md:mx-0 relative  '>
+		<div className='w-full bg-customWhite sticky top-0 z-10 shadow-lg'>
+			<div className='   h-16 flex justify-between md:justify-around mx-auto px-[10px] md:px-8 items-center shadow-lg md:max-w-full md:mx-0 relative  '>
 				<div className='flex h-[30px]'>
 					{tableNo ? (
 						<div className=' flex items-center gap-[5px] md:gap-3 lg:gap-4 bg-slate-100 rounded-md px-2  text-slate-500 s'>
@@ -39,14 +39,13 @@ function Header() {
 					)}
 					<NavLink
 						to='/'
-						className='flex items-center text-slate-800  font-semibold min-w-[140px]'
+						className=' flex items-center pt-[10%] text-slate-800  font-semibold min-w-[140px]'
 					>
 						<img
-							className='w-12  rounded-2xl sm:w-16 md:w-20 '
+							className='w-[120px] pt-2 sm:w-16 md:w-36 md:pt-2 '
 							src={Logo}
 							alt=''
 						/>
-						<h1 className='text-[20px]'> Fast Order </h1>
 					</NavLink>
 				</div>
 				<nav className='  relative flex items-center text-slate-700 '>

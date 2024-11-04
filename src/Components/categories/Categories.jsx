@@ -58,7 +58,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 		dots: false,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 4,
+		slidesToShow: 5,
 		slidesToScroll: 3,
 		arrows: true,
 		prevArrow: <CustomPrevArrow />,
@@ -84,19 +84,15 @@ const Categories = ({ category, setCategory, categoryList }) => {
 					{categoryList?.list.map((menu, index) => (
 						<div key={index} className='flex items-center justify-center '>
 							<li
-								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 transition-transform duration-500 ease-in-out ${
+								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 transform-gpu transition-transform duration-500 ease-in-out ${
 									category !== menu?.category
 										? 'bg-slate-100'
 										: 'bg-orange-400 text-slate-100 scale-110'
 								} min-w-[6rem] md:min-w-44`}
-								onClick={() =>
-									setCategory((prev) =>
-										prev === menu?.category ? 'All' : menu?.category
-									)
-								}
+								onClick={() => setCategory(menu?.category)}
 							>
 								<div className='flex items-center p-2'>
-									<span className='text-md font-semibold drop-shadow-md'>
+									<span className='text-sm font-medium drop-shadow-md'>
 										{menu?.category}
 									</span>
 								</div>

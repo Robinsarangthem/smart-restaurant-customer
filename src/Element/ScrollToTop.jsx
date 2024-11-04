@@ -1,15 +1,27 @@
-import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 export default function ScrollToTop() {
 	const { pathname } = useLocation()
 
 	useEffect(() => {
-		console.log("Pathname change", pathname)
 		window.scrollTo({
 			top: 0,
-			behavior: "smooth",
+			behavior: 'smooth',
 		})
+
+		// Define a base title
+		const baseTitle = 'Restaurant'
+		// Create a title based on the current pathname
+		const pathName =
+			pathname === '/'
+				? baseTitle
+				: `${baseTitle} | ${
+						pathname.replace('/', '').charAt(0).toUpperCase() +
+						pathname.slice(2)
+				  }`
+
+		document.title = pathName
 	}, [pathname])
 	return null
 }

@@ -12,9 +12,9 @@ const Search = () => {
 	const { setFoodList, fetchALlFoodList } = useFoodList()
 	const debouncedQuery = useDebounce(urlSearchParam.get('search'), 500)
 	const [suggestions, setSuggestions] = useState([])
-	const [inputValue, setInputValue] = useState('')
-
-	useEffect(() => {}, [])
+	const [inputValue, setInputValue] = useState(
+		urlSearchParam.get('search' || '')
+	)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -55,7 +55,7 @@ const Search = () => {
 		setInputValue(suggestion.name) // Add the selected suggestion to the input
 		setUrlSearchParam({ search: suggestion })
 		setSuggestions([])
-		setInputValue('')
+		console.log('clear')
 	}
 
 	return (
@@ -71,16 +71,23 @@ const Search = () => {
 						className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5   outline-sky-600'
 						placeholder='Search'
 						autoComplete='off'
-						value={inputValue}
+						value={inputValue ?? ''}
 						required
 						onChange={handleInputChange}
 					/>
 					{suggestions.length > 0 && (
-						<ul className='absolute z-10 w-full  bg-white border border-gray-300 mt-1 rounded-lg shadow-lg'>
+						<ul
+							className='absolute z-10 w-full  bg-white border border-gray-300 mt-1 rounded-lg shadow-lg overflow-y-auto no-scrollbar'
+							style={{
+								maxHeight: '240px', // Set maximum height
+								overflowY: 'auto', // Enable vertical scrolling
+								overflowX: 'hidden', // Hide horizontal scrolling if not needed
+							}}
+						>
 							{suggestions.map((suggestion, index) => (
 								<li
 									key={index}
-									className='px-4 py-2 hover:bg-blue-100 cursor-pointer'
+									className='px-4 py-2 hover:bg-blue-100 cursor-pointer '
 									onClick={() => handleSuggestionClick(suggestion.name)} // Assuming suggestion has a 'name' property
 								>
 									{suggestion.name}

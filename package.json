@@ -13,6 +13,7 @@
 		"@radix-ui/react-avatar": "^1.1.0",
 		"@radix-ui/react-slot": "^1.1.0",
 		"@react-icons/all-files": "^4.1.0",
+		"@remba/image-glow": "^1.0.5",
 		"@tanstack/react-query": "^5.35.1",
 		"@tanstack/react-query-devtools": "^5.35.1",
 		"@yudiel/react-qr-scanner": "^2.0.4",
@@ -42,10 +43,12 @@
 		"react-spinners": "^0.13.8",
 		"react-toastify": "^10.0.5",
 		"react-webcam": "^7.2.0",
+		"react-window": "^1.8.10",
 		"slick-carousel": "^1.8.1",
 		"socket.io": "^4.7.5",
 		"socket.io-client": "^4.7.5",
-		"tailwind-merge": "^2.3.0"
+		"tailwind-merge": "^2.3.0",
+		"vite-plugin-node-polyfills": "^0.22.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.2",

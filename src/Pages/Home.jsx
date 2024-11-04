@@ -5,15 +5,13 @@ import { useQuery } from '@tanstack/react-query'
 import { Axios } from '@/utils/axiosSetup'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { PropagateLoader } from 'react-spinners'
-import { ErrorBoundary } from 'react-error-boundary'
-import FallbackRender from '@/Components/FoodDisplay/FallbackRender'
-const LazyFoodDisplay = React.lazy(() =>
-	import('../Components/FoodDisplay/FoodDisplay')
-)
-function Home() {
-	const [category, setCategory] = useState('All')
+import FoodDisplay from '@/Components/FoodDisplay/FoodDisplay'
+import { useNavigate, useParams } from 'react-router'
 
+function Home() {
+	const { category: urlCategory } = useParams()
+	const [category, setCategory] = useState(urlCategory || 'All')
+	const navigate = useNavigate()
 	const fetchingCategory = async () => {
 		const response = await Axios.get('/api/category/list')
 		return response.data
@@ -24,30 +22,37 @@ function Home() {
 		queryFn: fetchingCategory,
 	})
 
+	useEffect(() => {
+		if (urlCategory !== 'All') {
+			setCategory(urlCategory || 'All')
+		}
+	}, [urlCategory])
+	const handleChangeCategory = (newCategory) => {
+		setCategory(
+			(prevCategory) => (prevCategory === newCategory ? 'All' : newCategory) // Toggle back to "All" if the same category is clicked
+		)
+
+		// Navigate based on the new category (if "All", navigate to root)
+		navigate(
+			`/${newCategory === 'All' || category === newCategory ? '' : newCategory}`
+		)
+	}
+
 	return (
 		<main>
 			<section>
 				<Search />
 				<div>
 					<Categories
+						key={category._id}
 						category={category}
-						setCategory={setCategory}
+						setCategory={handleChangeCategory}
 						categoryList={categoryList}
 					/>
 				</div>
-				<ErrorBoundary fallback={FallbackRender}>
-					<Suspense
-						fallback={
-							<div className='flex justify-center min-h-[30svh] items-center  text-blue-500'>
-								<PropagateLoader color='blue' />
-							</div>
-						}
-					>
-						<div className='my-3' key={category._id}>
-							<LazyFoodDisplay category={category} />
-						</div>
-					</Suspense>
-				</ErrorBoundary>
+				<div className='' key={category._id}>
+					<FoodDisplay category={category} />
+				</div>
 			</section>
 		</main>
 	)

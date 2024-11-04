@@ -102,7 +102,7 @@ function Cart() {
 	}
 
 	return (
-		<div className='h-[100svh]'>
+		<div className='h-[100svh] '>
 			<div
 				className={
 					!cart.length
@@ -112,7 +112,7 @@ function Cart() {
 			>
 				<div className='container mx-auto px-4 py-8'>
 					<h1 className='text-2xl font-bold mb-6'>Your Cart</h1>
-					<div className='lg:flex lg:space-x-8'>
+					<div className='lg:flex lg:justify-center lg:space-x-8'>
 						<div className='lg:w-2/3 grid gap-3'>
 							{cart.map((item, i) => {
 								const cartItem = cart.find(
@@ -121,21 +121,20 @@ function Cart() {
 								return cartItem ? <CartPage key={i} item={cartItem} /> : null
 							})}
 						</div>
-
-						{!cart.length ? (
-							<CartEmpty />
-						) : (
-							<PlaceOrder
-								getTotalAmount={getTotalAmount}
-								cart={cart}
-								handleOrderCreated={handleOrderCreated}
-								isPending={isPending}
-								totalOrderLength={totalOrderLength}
-								clearCart={clearCart}
-							/>
-						)}
 					</div>
 				</div>
+				{!cart.length ? (
+					<CartEmpty />
+				) : (
+					<PlaceOrder
+						getTotalAmount={getTotalAmount}
+						cart={cart}
+						handleOrderCreated={handleOrderCreated}
+						isPending={isPending}
+						totalOrderLength={totalOrderLength}
+						clearCart={clearCart}
+					/>
+				)}
 			</div>
 		</div>
 	)
