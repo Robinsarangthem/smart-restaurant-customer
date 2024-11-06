@@ -6,43 +6,42 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const Search = () => {
-	// const [searchText, setSearchText] = useState('')
 	const [urlSearchParam, setUrlSearchParam] = useSearchParams()
 	const queryClient = useQueryClient()
 	const { setFoodList, fetchALlFoodList } = useFoodList()
 	const debouncedQuery = useDebounce(urlSearchParam.get('search'), 500)
 	const [suggestions, setSuggestions] = useState([])
 	const [inputValue, setInputValue] = useState(
-		urlSearchParam.get('search' || '')
+		urlSearchParam.get('search') || ''
 	)
 
 	useEffect(() => {
 		const fetchData = async () => {
 			if (!debouncedQuery) {
 				await fetchALlFoodList()
-				setSuggestions([])
+				setSuggestions([]) // Clear suggestions if search is empty
 				return
 			}
 
 			try {
-				const response = queryClient.fetchQuery({
+				const response = await queryClient.fetchQuery({
 					queryKey: ['search', debouncedQuery],
 					queryFn: async () => {
-						return Axios.get('/api/food/find', {
+						const result = await Axios.get('/api/food/find', {
 							params: {
 								foodName: debouncedQuery,
 							},
 						})
+						return result.data
 					},
 				})
-				response.then((data) => {
-					setFoodList(data.data.food)
-					setSuggestions(data.data.food)
-				})
+				setFoodList(response.food)
+				setSuggestions(response.food)
 			} catch (error) {
-				console.error('', error)
+				console.error('Error fetching food items:', error)
 			}
 		}
+
 		fetchData()
 	}, [debouncedQuery, queryClient, setFoodList])
 
@@ -51,11 +50,14 @@ const Search = () => {
 		setInputValue(text)
 		setUrlSearchParam({ search: text })
 	}
+
 	const handleSuggestionClick = (suggestion) => {
-		setInputValue(suggestion.name) // Add the selected suggestion to the input
-		setUrlSearchParam({ search: suggestion })
-		setSuggestions([])
-		console.log('clear')
+		// Set inputValue to the selected suggestion name
+		setInputValue(suggestion.name)
+		// Update the search URL parameter
+		setUrlSearchParam({ search: suggestion.name })
+		// Clear the suggestions list to close the dropdown
+		setTimeout(() => setSuggestions([]), 100) // Adding a delay to allow click events to register
 	}
 
 	return (
@@ -64,31 +66,31 @@ const Search = () => {
 				<div className='relative w-full'>
 					<span className='bi bi-search flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'></span>
 					<input
-						// ref={searchRef}
 						type='text'
 						name='search'
 						id='simple-search'
-						className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5   outline-sky-600'
+						className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 outline-sky-600'
 						placeholder='Search'
 						autoComplete='off'
 						value={inputValue ?? ''}
 						required
 						onChange={handleInputChange}
+						// onBlur={handleBlur} // Clear suggestions when input loses focus
 					/>
 					{suggestions.length > 0 && (
 						<ul
-							className='absolute z-10 w-full  bg-white border border-gray-300 mt-1 rounded-lg shadow-lg overflow-y-auto no-scrollbar'
+							className='absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-lg shadow-lg overflow-y-auto no-scrollbar'
 							style={{
-								maxHeight: '240px', // Set maximum height
-								overflowY: 'auto', // Enable vertical scrolling
-								overflowX: 'hidden', // Hide horizontal scrolling if not needed
+								maxHeight: '240px',
+								overflowY: 'auto',
+								overflowX: 'hidden',
 							}}
 						>
 							{suggestions.map((suggestion, index) => (
 								<li
 									key={index}
-									className='px-4 py-2 hover:bg-blue-100 cursor-pointer '
-									onClick={() => handleSuggestionClick(suggestion.name)} // Assuming suggestion has a 'name' property
+									className='px-4 py-2 hover:bg-blue-100 cursor-pointer'
+									onClick={() => handleSuggestionClick(suggestion)}
 								>
 									{suggestion.name}
 								</li>

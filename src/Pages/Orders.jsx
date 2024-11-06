@@ -37,6 +37,16 @@ const Orders = () => {
 	const { mutate: PayByCash, isPending: pendingPayByCash } = useMutation({
 		mutationKey: ['PAYBYCASh'],
 		mutationFn: payByCash,
+		onSuccess: (data) => {
+			if (data?.success === true) {
+				toast.success(data?.message)
+				navigate('/order_status', { replace: true })
+			}
+		},
+		onError: (error) => {
+			console.log(error?.response?.data?.message)
+			toast.error(error?.response?.data?.message)
+		},
 	})
 	// end
 

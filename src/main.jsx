@@ -29,22 +29,22 @@ import { ToastContainer } from 'react-toastify'
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route element={<RootLayout />}>
-			{/* <Route element={<ProtectedRoute />}> */}
-			<Route element={<Layout />}>
-				<Route path='/' element={<Home />} />
-				<Route path=':category' element={<Home />} />
-				<Route path='/contact' element={<Contact />} />
-				<Route path='food/:foodId' element={<FoodDetail />} />
-				<Route path='/orders' element={<Orders />} />
-				<Route path='/order_status' element={<OrderDetails />} />
-				<Route path='/carts' element={<Cart />} />
+			<Route element={<ProtectedRoute />}>
+				<Route element={<Layout />}>
+					<Route path='/' element={<Home />} />
+					<Route path=':category' element={<Home />} />
+					<Route path='/contact' element={<Contact />} />
+					<Route path='food/:foodId' element={<FoodDetail />} />
+					<Route path='/orders' element={<Orders />} />
+					<Route path='/order_status' element={<OrderDetails />} />
+					<Route path='/carts' element={<Cart />} />
+				</Route>
 			</Route>
-			{/* </Route> */}
 			<Route path='*' element={<PageNotFound />} />
-			{/* <Route>
+			<Route>
 				<Route path='/tables/:id' element={<Tables />} />
 				<Route path='/landing' element={<WelcomePage />} />
-			</Route> */}
+			</Route>
 		</Route>
 	)
 )

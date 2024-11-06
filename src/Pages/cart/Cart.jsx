@@ -42,7 +42,7 @@ function Cart() {
 		const dataToSend = cart.map((Item) => {
 			return {
 				// foodName: Item.name,
-				id: Item._id,
+				foodId: Item._id,
 				quantity: Item.quantity,
 			}
 		})

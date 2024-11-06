@@ -9,6 +9,8 @@ import { useFoodList } from '../hooks/useFoodList'
 import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
 import { PropagateLoader } from 'react-spinners'
+import FilterChabora from './FilterChabora'
+import { Footprints } from 'lucide-react'
 const FoodCard = React.lazy(() => import('./FoodCard'))
 const FoodDisplay = ({ category }) => {
 	const { data, isLoading } = useFoodList()
@@ -19,6 +21,11 @@ const FoodDisplay = ({ category }) => {
 	const productsWithCategory = data?.filter((product) => {
 		return category === 'All' || product.category === category
 	})
+	//filterChabora 1902
+	const filteredChaBora1902 = data?.filter(
+		(product) => product.category === 'ChaBora 1902'
+	)
+	console.log(filteredChaBora1902)
 
 	// Load more items when the last item is in view
 	const loadMoreItems = () => {
@@ -48,9 +55,25 @@ const FoodDisplay = ({ category }) => {
 			}
 		}
 	}, [handleObserver])
+	if (isLoading) {
+		return (
+			<div className='flex justify-center items-center min-h-[100svh]'>
+				<PropagateLoader color='blue' />
+			</div>
+		)
+	}
 
 	return (
 		<div>
+			<h1 className='text-xl p-2   text-customBlack  font-sans md:text-2xl font-semibold md:text-center'>
+				ChaBora 1902
+			</h1>
+			<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5'>
+				{filteredChaBora1902?.map((product, idx) => (
+					<FilterChabora key={idx} product={product} isLoading={isLoading} />
+				))}
+			</div>
+			<div className='border-b-4 border-orange-400'></div>
 			<h1 className='text-xl p-2 text-slate-700 font-sans md:text-2xl font-semibold md:text-center'>
 				{category === 'All' ? 'Menu ' : <p>{category}</p>}
 			</h1>
@@ -62,6 +85,7 @@ const FoodDisplay = ({ category }) => {
 						style={{
 							contain: 'paint layout style',
 							backfaceVisibility: 'hidden',
+							scrollBehavior: 'smooth',
 						}}
 						ref={index === displayedItems - 1 ? lastCardRef : null}
 					>

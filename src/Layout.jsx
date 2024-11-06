@@ -28,7 +28,12 @@ function Layout() {
 		<>
 			<ScrollToTop />
 			<Header />
-			<main className='min-h-[100lvh] bg-slate-200 pt-2 pb-2  '>
+			<main
+				className='min-h-[100lvh] bg-slate-200 pt-2 pb-2   '
+				style={{
+					scrollBehavior: 'smooth',
+				}}
+			>
 				<Outlet />
 			</main>
 		</>
