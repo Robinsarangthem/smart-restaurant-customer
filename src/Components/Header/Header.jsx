@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from '../context'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 // import Search from '../../Element/Search'
-import Logo from '../../assets/Images/Achaathak__3_-removebg-preview.png'
+import Logo from '../../assets/Images/Achaathak-removebg-preview (1).png'
 
 import table from '../../../src/assets/Images/coffee-table.png'
 

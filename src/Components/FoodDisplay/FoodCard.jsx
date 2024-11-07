@@ -5,17 +5,25 @@ import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
 
-const FoodCard = React.memo(({ product, isLoading }) => {
+const FoodCard = React.memo(({ product }) => {
 	const { _id, image, description, name, price } = product
 	const { addToCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
+	const [isLoading, setIsloading] = useState(true)
+	useEffect(() => {
+		const img = new Image()
+		img.src = image
+		img.onload = () => {
+			setIsloading(false)
+		}
+	}, [image])
 
 	return (
 		<div className='p-2 bg-customWhite shadow-md rounded-md   	'>
 			<Link to={`/food/${_id}`}>
 				<div className='relative'>
 					{isLoading ? (
-						<Skeleton className='w-full h-48 rounded-lg' />
+						<Skeleton variant='rectangle' className='w-full h-48 rounded-lg' />
 					) : (
 						<img
 							className='w-full h-48 object-cover rounded-lg drop-shadow-md transform-gpu hover:scale-105 transition-transform duration-200'

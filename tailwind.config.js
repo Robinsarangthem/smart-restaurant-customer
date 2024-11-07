@@ -32,6 +32,9 @@ module.exports = {
 			},
 		},
 		extend: {
+			willChange: {
+				transform: 'transform',
+			},
 			keyframes: {
 				slideLeftFade: {
 					'0%': {
@@ -157,6 +160,10 @@ module.exports = {
 					'&::-webkit-scrollbar': {
 						display: 'none',
 					},
+				},
+				'.carousel-item': {
+					transform: 'translate3d(0, 0, 0)',
+					transition: 'transform 0.5s ease-in-out',
 				},
 			})
 		},

@@ -11,7 +11,7 @@ export default function ScrollToTop() {
 		})
 
 		// Define a base title
-		const baseTitle = 'Restaurant'
+		const baseTitle = 'Achaathak'
 		// Create a title based on the current pathname
 		const pathName =
 			pathname === '/'

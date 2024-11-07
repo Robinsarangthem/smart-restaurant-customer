@@ -86,3 +86,8 @@
 html {
 	scroll-behavior: smooth;
 }
+
+.containerClass {
+	margin-left: -8px; /* Adjust negative margin as needed */
+	margin-right: -8px;
+}

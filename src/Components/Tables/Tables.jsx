@@ -9,7 +9,7 @@ import { Button } from '../ui/button'
 import useAuth from '../hooks/useAuth'
 import { toast } from 'react-toastify'
 // import restaurant from '../../assets/Images/restaurant_photo.jpg'
-import backgroundImage from '../../assets/Images/restaurant.png'
+// import backgroundImage from '../../assets/Images/restaurant.png'
 import { Input } from '../ui/input'
 
 export default function Tables() {

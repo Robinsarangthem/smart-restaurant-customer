@@ -2,7 +2,7 @@ import useDebounce from '@/Components/hooks/useDebounce'
 import { useFoodList } from '@/Components/hooks/useFoodList'
 import { Axios } from '@/utils/axiosSetup'
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const Search = () => {
@@ -14,6 +14,7 @@ const Search = () => {
 	const [inputValue, setInputValue] = useState(
 		urlSearchParam.get('search') || ''
 	)
+	const dropDownRef = useRef(null)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -59,27 +60,46 @@ const Search = () => {
 		// Clear the suggestions list to close the dropdown
 		setTimeout(() => setSuggestions([]), 100) // Adding a delay to allow click events to register
 	}
+	const handleSearch = (e) => {
+		e.preventDefault()
+		setInputValue('') // Clear the input field
+		setSuggestions([]) // Optional: Clear suggestions if needed
+	}
+
+	useEffect(() => {
+		const handleOnclikOutside = (event) => {
+			if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+				setSuggestions([])
+			}
+		}
+		document.addEventListener('mousedown', handleOnclikOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleOnclikOutside)
+		}
+	}, [])
 
 	return (
-		<div className='mx-auto max-w-screen-xl p-2 my-5 origin-top animate-out fade-in-5'>
-			<form onSubmit={(e) => e.preventDefault()} className='flex items-center'>
+		<div
+			className='mx-auto max-w-screen-xl p-2 my-5 origin-top animate-out fade-in-5'
+			ref={dropDownRef}
+		>
+			<form onSubmit={handleSearch} className='flex items-center'>
 				<div className='relative w-full'>
-					<span className='bi bi-search flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'></span>
+					<span className='bi bi-search absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'></span>
 					<input
 						type='text'
 						name='search'
 						id='simple-search'
-						className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 outline-sky-600'
+						className='w-full p-2.5 pl-10 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-sky-600' // Tailwind uppercase class added
 						placeholder='Search'
 						autoComplete='off'
 						value={inputValue ?? ''}
 						required
 						onChange={handleInputChange}
-						// onBlur={handleBlur} // Clear suggestions when input loses focus
 					/>
 					{suggestions.length > 0 && (
 						<ul
-							className='absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-lg shadow-lg overflow-y-auto no-scrollbar'
+							className='absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-lg shadow-lg overflow-y-auto'
 							style={{
 								maxHeight: '240px',
 								overflowY: 'auto',
@@ -89,10 +109,21 @@ const Search = () => {
 							{suggestions.map((suggestion, index) => (
 								<li
 									key={index}
-									className='px-4 py-2 hover:bg-blue-100 cursor-pointer'
+									className='px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer uppercase' // Tailwind uppercase class added
 									onClick={() => handleSuggestionClick(suggestion)}
 								>
-									{suggestion.name}
+									{/* Highlight matching text and convert to uppercase */}
+									{suggestion.name
+										.split(new RegExp(`(${debouncedQuery})`, 'gi'))
+										.map((part, i) =>
+											part.toLowerCase() === debouncedQuery?.toLowerCase() ? (
+												<span key={i} className='font-semibold text-blue-600'>
+													{part}
+												</span>
+											) : (
+												part
+											)
+										)}
 								</li>
 							))}
 						</ul>
