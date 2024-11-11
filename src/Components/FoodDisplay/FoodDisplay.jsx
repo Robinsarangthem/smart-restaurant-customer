@@ -11,7 +11,21 @@ import { PropagateLoader } from 'react-spinners'
 import FilterChabora from './FilterChabora'
 import Carousel from 'react-multi-carousel'
 const FoodCard = React.lazy(() => import('./FoodCard'))
-import 'react-multi-carousel/lib/styles.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import {
+	FreeMode,
+	Navigation,
+	Autoplay,
+	Pagination,
+	Virtual,
+} from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
+import ScrollToTop from '@/Element/ScrollToTop'
+import rooftopcafe from './../../assets/Images/rooftopcafe.jpg'
+import RoofTopCafe from './RoofTopCafe'
 const FoodDisplay = ({ category }) => {
 	const { data, isLoading } = useFoodList()
 	const [displayedItems, setDisplayedItems] = useState(10) // Initial number of items
@@ -25,9 +39,11 @@ const FoodDisplay = ({ category }) => {
 	const filteredChaBora1902 = data?.filter(
 		(product) => product.category === 'ChaBora 1902'
 	)
+	const filteredRoofTopCafe = data?.filter(
+		(product) => product.category === 'RoofTop Cafe'
+	)
 
 	// Load more items when the last item is in view
-
 	const loadMoreItems = () => {
 		if (loading) return
 		setLoading(true)
@@ -38,18 +54,45 @@ const FoodDisplay = ({ category }) => {
 	}
 	const isAllItemsLoaded = displayedItems >= productsWithCategory.length
 
-	const handleObserver = useCallback((entries) => {
-		const target = entries[0]
-		if (target.isIntersecting) {
-			loadMoreItems()
+	const handleObserver = useCallback(
+		(entries) => {
+			const target = entries[0]
+			if (target.isIntersecting) {
+				loadMoreItems()
+			}
+		},
+		[loading]
+	)
+	const menuRef = useRef()
+	const scrollToMenu = () => {
+		if (menuRef.current) {
+			const elementPosition =
+				menuRef.current.getBoundingClientRect().top + window.pageYOffset
+			const offsetPosition = elementPosition - 70 // Adjust for fixed header (60px)
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth',
+			})
 		}
-	}, [])
+	}
+
+	useEffect(() => {
+		if (category === 'All') {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth', // Smooth scroll to top
+			})
+		} else {
+			scrollToMenu()
+		}
+	}, [category])
 
 	useEffect(() => {
 		const option = {
 			root: null,
 			rootMargin: '20px',
-			threshold: 1.0,
+			threshold: 0.5,
 		}
 		const currentObserver = new IntersectionObserver(handleObserver, option)
 		if (lastCardRef.current) {
@@ -60,7 +103,8 @@ const FoodDisplay = ({ category }) => {
 				currentObserver.unobserve(lastCardRef.current)
 			}
 		}
-	}, [handleObserver])
+	}, [handleObserver, lastCardRef])
+
 	if (isLoading) {
 		return (
 			<div className='flex justify-center items-center min-h-[100svh]'>
@@ -69,34 +113,16 @@ const FoodDisplay = ({ category }) => {
 		)
 	}
 	const FilterMemoized = React.memo(FilterChabora)
-	//for carousel only
-	const responsive = {
-		superLargeDesktop: {
-			breakpoint: { max: 4000, min: 3000 },
-			items: 5,
-		},
-		desktop: {
-			breakpoint: { max: 3000, min: 1024 },
-			items: 5,
-			partialVisibilityGutter: 0,
-		},
-		tablet: {
-			breakpoint: { max: 1024, min: 464 },
-			items: 2,
-			partialVisibilityGutter: 50,
-		},
-		mobile: {
-			breakpoint: { max: 600, min: 0 },
-			items: 2,
-			partialVisibilityGutter: 40,
-		},
-	}
+
+	const isMobile = window.innerWidth < 768
+	const mobileSpeed = isMobile ? 300 : 500
+
 	return (
 		<div>
 			<h1 className='text-xl p-2   text-customBlack  font-sans md:text-2xl font-semibold md:text-center'>
 				ChaBora 1902
 			</h1>
-			<Carousel
+			{/* <Carousel
 				className='py-4		flex  gap-5'
 				responsive={responsive}
 				swipeable={true}
@@ -116,23 +142,112 @@ const FoodDisplay = ({ category }) => {
 				itemClass='carousel-item transform-gpu transition-transform duration-300 ease-in-out will-change-transform'
 				// additionalTransfrom={displayedItems}
 				pauseOnHover={true}
-			>
-				{filteredChaBora1902?.length > 0 ? (
-					filteredChaBora1902.map((product, idx) => (
-						<div className=' mr-[10px] md:p-3 '>
-							<FilterMemoized
+			> */}
+
+			<div className='w-full   mx-auto px-3 p-2	'>
+				<Swiper
+					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
+					spaceBetween={10}
+					slidesPerView={isMobile ? 2 : 3}
+					navigation={!isMobile}
+					loop={true}
+					touchRatio={1}
+					freeMode
+					freeModeMomentum // Enable smooth momentum scrolling
+					freeModeMomentumRatio={0.3} // Adjust to control momentum
+					freeModeSticky={false} // Disable snapping to the closest slide
+					watchOverflow={true}
+					className='rounded-md swiper-container'
+					breakpoints={{
+						320: { slidesPerView: 2, spaceBetween: 2 },
+						640: { slidesPerView: 3 },
+						768: { slidesPerView: 4 },
+						1024: { slidesPerView: 5 },
+					}}
+					speed={mobileSpeed}
+					touchEventsTarget='container'
+					touchStartPreventDefault={true}
+					virtual
+				>
+					{filteredChaBora1902?.length > 0 ? (
+						filteredChaBora1902.map((product, idx) => (
+							<SwiperSlide
 								key={idx}
-								product={product}
-								isLoading={isLoading}
-							/>
-						</div>
-					))
-				) : (
-					<div>No products available</div> // Fallback message
-				)}
-			</Carousel>
+								className=' px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out '
+								style={{ backfaceVisibility: 'hidden' }}
+							>
+								<FilterMemoized product={product} isLoading={isLoading} />
+							</SwiperSlide>
+						))
+					) : (
+						<div className='text-customRed text-center'>
+							No products available
+						</div> // Fallback message
+					)}
+				</Swiper>
+			</div>
+			{/* </Carousel> */}
 			<div className='border-b-4 border-orange-400'></div>
-			<h1 className='text-xl p-2 text-slate-700 font-sans md:text-2xl font-semibold md:text-center'>
+			<div className=' flex items-center md:justify-center  mx-2 mt-2  '>
+				<div className='	flex items-center  p-2 bg-customWhite rounded-md font-sans shadow-md'>
+					<img
+						src={rooftopcafe}
+						width={100}
+						height={100}
+						className='  rounded-md'
+					/>
+					<h2 className='uppercase text-md p-2   text-customBlack  font-sans md:text-xl font-semibold md:text-center	'>
+						rooftop Cafe
+					</h2>
+				</div>
+			</div>
+			<div className='w-full   mx-auto px-3 p-2	'>
+				<Swiper
+					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
+					spaceBetween={10}
+					slidesPerView={isMobile ? 2 : 3}
+					navigation={!isMobile}
+					loop={true}
+					touchRatio={1}
+					freeMode
+					freeModeMomentum // Enable smooth momentum scrolling
+					freeModeMomentumRatio={0.3} // Adjust to control momentum
+					freeModeSticky={false} // Disable snapping to the closest slide
+					watchOverflow={true}
+					className='rounded-md swiper-container'
+					breakpoints={{
+						320: { slidesPerView: 2, spaceBetween: 2 },
+						640: { slidesPerView: 3 },
+						768: { slidesPerView: 4 },
+						1024: { slidesPerView: 5 },
+					}}
+					speed={mobileSpeed}
+					touchEventsTarget='container'
+					touchStartPreventDefault={true}
+					virtual
+				>
+					{filteredRoofTopCafe?.length > 0 ? (
+						filteredRoofTopCafe.map((product, idx) => (
+							<SwiperSlide
+								key={idx}
+								className=' px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out '
+								style={{ backfaceVisibility: 'hidden' }}
+							>
+								<RoofTopCafe product={product} isLoading={isLoading} />
+							</SwiperSlide>
+						))
+					) : (
+						<div className='text-customRed text-center'>
+							No products available
+						</div> // Fallback message
+					)}
+				</Swiper>
+			</div>
+			<div className='border-b-4 border-orange-400'></div>
+			<h1
+				ref={menuRef}
+				className='text-xl p-2 text-slate-700 font-sans md:text-2xl font-semibold md:text-center'
+			>
 				{category === 'All' ? 'Menu ' : <p>{category}</p>}
 			</h1>
 			<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5'>

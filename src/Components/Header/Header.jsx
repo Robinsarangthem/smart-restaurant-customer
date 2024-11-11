@@ -24,6 +24,12 @@ function Header() {
 		table = JSON.parse(table)
 		setTableNo(table)
 	}, [])
+	const handleOnClickToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		})
+	}
 	//
 	return (
 		<div className='w-full bg-customWhite sticky top-0 z-10 shadow-lg'>
@@ -39,6 +45,7 @@ function Header() {
 					)}
 					<NavLink
 						to='/'
+						onClick={handleOnClickToTop}
 						className=' flex items-center pt-[10%] text-slate-800  font-semibold min-w-[140px]'
 					>
 						<img

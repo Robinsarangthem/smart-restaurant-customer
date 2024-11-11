@@ -15,11 +15,7 @@ const FoodDetail = () => {
 	return (
 		<div className='flex flex-col md:flex-row md:mt-14 justify-center items-center mx-10 gap-4 mt-[80px] pb-5'>
 			{/* <Link to='/' className='absolute top-4 left-4'> */}
-			<img
-				className='w-8 hover:scale-105 transition-transform duration-200'
-				src={backArrow}
-				alt='Back'
-			/>
+
 			{/* </Link>	 */}
 			<div className='md:w-1/2'>
 				<img

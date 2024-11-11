@@ -49,6 +49,7 @@
 		"slick-carousel": "^1.8.1",
 		"socket.io": "^4.7.5",
 		"socket.io-client": "^4.7.5",
+		"swiper": "^11.1.14",
 		"tailwind-merge": "^2.3.0",
 		"vite-plugin-node-polyfills": "^0.22.0"
 	},

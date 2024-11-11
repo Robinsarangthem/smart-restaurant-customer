@@ -92,7 +92,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 								onClick={() => setCategory(menu?.category)}
 							>
 								<div className='flex items-center p-2'>
-									<span className='text-sm font-medium drop-shadow-md'>
+									<span className='text-[12px] mobile:text-sm	 font-medium drop-shadow-md'>
 										{menu?.category}
 									</span>
 								</div>

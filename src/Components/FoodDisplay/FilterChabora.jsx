@@ -28,6 +28,7 @@ export default function FilterChabora({ product }) {
 							className='w-full h-48 object-cover rounded-lg drop-shadow-md transform-gpu 	 transition-transform duration-200'
 							src={product.image || 'https://via.placeholder.com/200'}
 							alt={product.name}
+							loading='lazy'
 							width={200}
 							height={200}
 						/>

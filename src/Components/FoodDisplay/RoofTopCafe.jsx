@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useStore } from '../context'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
+import { Button } from '../ui/button'
 
-const FoodCard = React.memo(({ product }) => {
+const RoofTopCafe = ({ product }) => {
 	const { _id, image, description, name, price } = product
 	const { addToCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
@@ -53,7 +52,7 @@ const FoodCard = React.memo(({ product }) => {
 				</div>
 			</Link>
 			<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
-				<h2 className='text-sm pt-1 md:text-xl font-medium capitalize text-gray-800 drop-shadow-md'>
+				<h2 className='text-[15px] pt-1 md:text-[18px] font-medium capitalize text-customOrange drop-shadow-md'>
 					{name}
 				</h2>
 				<p className='text-[13px] md:text-base text-slate-500 h-[55px] pb-[20px]'>
@@ -85,6 +84,6 @@ const FoodCard = React.memo(({ product }) => {
 			</div>
 		</div>
 	)
-})
+}
 
-export default FoodCard
+export default React.memo(RoofTopCafe)

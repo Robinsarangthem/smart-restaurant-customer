@@ -32,6 +32,9 @@ module.exports = {
 			},
 		},
 		extend: {
+			translate: {
+				'z-0': 'translateZ(0)',
+			},
 			willChange: {
 				transform: 'transform',
 			},
@@ -164,6 +167,17 @@ module.exports = {
 				'.carousel-item': {
 					transform: 'translate3d(0, 0, 0)',
 					transition: 'transform 0.5s ease-in-out',
+				},
+
+				'.swiper-container': {
+					transform: 'translateZ(0)', // Hardware acceleration
+					willChange: 'transform', // Optimize for transform animations
+				},
+
+				'.transition-transform-ease': {
+					transitionProperty: 'transform',
+					transitionTimingFunction: 'ease-in-out',
+					transitionDuration: '800ms',
 				},
 			})
 		},
