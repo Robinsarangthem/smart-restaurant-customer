@@ -105,13 +105,13 @@ const FoodDisplay = ({ category }) => {
 		}
 	}, [handleObserver, lastCardRef])
 
-	if (isLoading) {
-		return (
-			<div className='flex justify-center items-center min-h-[100svh]'>
-				<PropagateLoader color='blue' />
-			</div>
-		)
-	}
+	// if (isLoading) {
+	// 	return (
+	// 		<div className='flex justify-center items-center min-h-[100svh]'>
+	// 			<PropagateLoader color='blue' />
+	// 		</div>
+	// 	)
+	// }
 	const FilterMemoized = React.memo(FilterChabora)
 
 	const isMobile = window.innerWidth < 768
@@ -119,30 +119,19 @@ const FoodDisplay = ({ category }) => {
 
 	return (
 		<div>
-			<h1 className='text-xl p-2   text-customBlack  font-sans md:text-2xl font-semibold md:text-center'>
-				ChaBora 1902
-			</h1>
-			{/* <Carousel
-				className='py-4		flex  gap-5'
-				responsive={responsive}
-				swipeable={true}
-				draggable={false}
-				showDots={false}
-				ssr={true}
-				infinite={false}
-				// autoPlay={true}
-				autoPlaySpeed={2000}
-				keyBoardControl={true}
-				customTransition='transform 0.5s ease-in-out'
-				transitionDuration={400}
-				containerClass='carousel-container'
-				// removeArrowOnDeviceType={['tablet', 'mobile']}
-				// deviceType={this.props.deviceType}
-				dotListClass='custom-dot-list-style'
-				itemClass='carousel-item transform-gpu transition-transform duration-300 ease-in-out will-change-transform'
-				// additionalTransfrom={displayedItems}
-				pauseOnHover={true}
-			> */}
+			<div className=' flex items-center justify-center  mx-2 mt-2  '>
+				<div className='	flex items-center	gap-2  p-[3px] bg-customWhite rounded-md font-sans shadow-md'>
+					<img
+						src={rooftopcafe}
+						width={90}
+						height={90}
+						className=' w-[60px] h-[60px]  rounded-md'
+					/>
+					<h1 className='text-[12px]    text-customBlack  font-sans md:text-lg font-semibold md:text-center'>
+						ChaBora 1902
+					</h1>
+				</div>
+			</div>
 
 			<div className='w-full   mx-auto px-3 p-2	'>
 				<Swiper
@@ -151,18 +140,16 @@ const FoodDisplay = ({ category }) => {
 					slidesPerView={isMobile ? 2 : 3}
 					navigation={!isMobile}
 					loop={true}
-					touchRatio={1}
-					freeMode
-					freeModeMomentum // Enable smooth momentum scrolling
-					freeModeMomentumRatio={0.3} // Adjust to control momentum
-					freeModeSticky={false} // Disable snapping to the closest slide
-					watchOverflow={true}
+					touchRatio={0.7}
+					// freeMode={true}
+					// resistanceRatio={0.85}
+					// watchOverflow={true}
 					className='rounded-md swiper-container'
 					breakpoints={{
 						320: { slidesPerView: 2, spaceBetween: 2 },
 						640: { slidesPerView: 3 },
 						768: { slidesPerView: 4 },
-						1024: { slidesPerView: 5 },
+						1024: { slidesPerView: 4 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -170,7 +157,7 @@ const FoodDisplay = ({ category }) => {
 					virtual
 				>
 					{filteredChaBora1902?.length > 0 ? (
-						filteredChaBora1902.map((product, idx) => (
+						filteredChaBora1902?.map((product, idx) => (
 							<SwiperSlide
 								key={idx}
 								className=' px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out '
@@ -186,17 +173,16 @@ const FoodDisplay = ({ category }) => {
 					)}
 				</Swiper>
 			</div>
-			{/* </Carousel> */}
 			<div className='border-b-4 border-orange-400'></div>
-			<div className=' flex items-center md:justify-center  mx-2 mt-2  '>
-				<div className='	flex items-center  p-2 bg-customWhite rounded-md font-sans shadow-md'>
+			<div className=' flex items-center justify-center  mx-2 mt-2  '>
+				<div className='	flex items-center	gap-2  p-[3px] bg-customWhite rounded-md font-sans shadow-md'>
 					<img
 						src={rooftopcafe}
-						width={100}
-						height={100}
-						className='  rounded-md'
+						width={90}
+						height={90}
+						className=' w-[60px] h-[60px]  rounded-md'
 					/>
-					<h2 className='uppercase text-md p-2   text-customBlack  font-sans md:text-xl font-semibold md:text-center	'>
+					<h2 className='uppercase text-[12px]  p-1	  text-customBlack  font-sans md:text-lg font-semibold md:text-center	'>
 						rooftop Cafe
 					</h2>
 				</div>
@@ -208,18 +194,16 @@ const FoodDisplay = ({ category }) => {
 					slidesPerView={isMobile ? 2 : 3}
 					navigation={!isMobile}
 					loop={true}
-					touchRatio={1}
-					freeMode
-					freeModeMomentum // Enable smooth momentum scrolling
-					freeModeMomentumRatio={0.3} // Adjust to control momentum
-					freeModeSticky={false} // Disable snapping to the closest slide
-					watchOverflow={true}
+					touchRatio={0.7}
+					// freeMode={true}
+					// resistanceRatio={0.85}
+					// watchOverflow={true}
 					className='rounded-md swiper-container'
 					breakpoints={{
 						320: { slidesPerView: 2, spaceBetween: 2 },
 						640: { slidesPerView: 3 },
 						768: { slidesPerView: 4 },
-						1024: { slidesPerView: 5 },
+						1024: { slidesPerView: 4 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -244,30 +228,32 @@ const FoodDisplay = ({ category }) => {
 				</Swiper>
 			</div>
 			<div className='border-b-4 border-orange-400'></div>
-			<h1
-				ref={menuRef}
-				className='text-xl p-2 text-slate-700 font-sans md:text-2xl font-semibold md:text-center'
-			>
-				{category === 'All' ? 'Menu ' : <p>{category}</p>}
-			</h1>
-			<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5'>
-				{productsWithCategory.slice(0, displayedItems).map((product, index) => (
-					<div
-						key={product._id}
-						className='transform-gpu will-change-transform'
-						style={{
-							contain: 'paint layout style',
-							backfaceVisibility: 'hidden',
-							scrollBehavior: 'smooth',
-						}}
-						ref={index === displayedItems - 1 ? lastCardRef : null}
-					>
-						<Suspense fallback={<PropagateLoader />}>
-							<FoodCard product={product} isLoading={isLoading} />
-						</Suspense>
-					</div>
-				))}
-			</div>
+			<Suspense fallback={<PropagateLoader />}>
+				<h1
+					ref={menuRef}
+					className='text-xl p-2 text-slate-700 font-sans md:text-2xl font-semibold md:text-center'
+				>
+					{category === 'All' ? 'Menu ' : <p>{category}</p>}
+				</h1>
+				<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5'>
+					{productsWithCategory
+						.slice(0, displayedItems)
+						.map((product, index) => (
+							<div
+								key={product._id}
+								className='transform-gpu will-change-transform'
+								style={{
+									contain: 'paint layout style',
+									backfaceVisibility: 'hidden',
+									scrollBehavior: 'smooth',
+								}}
+								ref={index === displayedItems - 1 ? lastCardRef : null}
+							>
+								<FoodCard product={product} isLoading={isLoading} />
+							</div>
+						))}
+				</div>
+			</Suspense>
 			<div className='flex justify-center py-6'>
 				{!isAllItemsLoaded && (
 					<div className='flex justify-center py-6'>

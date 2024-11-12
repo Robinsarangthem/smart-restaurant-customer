@@ -1,17 +1,22 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import Categories from '../Components/categories/Categories'
 import Search from '@/Element/Search'
 import { useQuery } from '@tanstack/react-query'
 import { Axios } from '@/utils/axiosSetup'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import FoodDisplay from '@/Components/FoodDisplay/FoodDisplay'
 import { useNavigate, useParams } from 'react-router'
-
+import { Skeleton } from '@/Components/ui/skeleton'
+const Categories = React.lazy(() =>
+	import('../Components/categories/Categories')
+)
+const FoodDisplay = React.lazy(() =>
+	import('@/Components/FoodDisplay/FoodDisplay')
+)
 function Home() {
 	const { category: urlCategory } = useParams()
 	const [category, setCategory] = useState(urlCategory || 'All')
 	const navigate = useNavigate()
+
 	const fetchingCategory = async () => {
 		const response = await Axios.get('/api/category/list')
 		return response.data
@@ -43,15 +48,19 @@ function Home() {
 			<section>
 				<Search />
 				<div>
-					<Categories
-						key={category._id}
-						category={category}
-						setCategory={handleChangeCategory}
-						categoryList={categoryList}
-					/>
+					<Suspense fallback={<Skeleton className=' h-10 w-full' />}>
+						<Categories
+							key={category._id}
+							category={category}
+							setCategory={handleChangeCategory}
+							categoryList={categoryList}
+						/>
+					</Suspense>
 				</div>
-				<div className='' key={category._id}>
-					<FoodDisplay category={category} />
+				<div key={category._id}>
+					<Suspense fallback={<div> Loading .... </div>}>
+						<FoodDisplay category={category} />
+					</Suspense>
 				</div>
 			</section>
 		</main>

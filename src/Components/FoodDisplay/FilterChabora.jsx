@@ -5,6 +5,7 @@ import { useStore } from '../context'
 import { Button } from '../ui/button'
 import 'react-multi-carousel/lib/styles.css'
 import Carousel from 'react-multi-carousel'
+import { PlusCircle } from 'lucide-react'
 export default function FilterChabora({ product }) {
 	const { addToCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === product._id)
@@ -18,7 +19,7 @@ export default function FilterChabora({ product }) {
 	}, [product.image])
 
 	return (
-		<div className='p-2 bg-customWhite shadow-md rounded-md '>
+		<div className='p-1 bg-customWhite shadow-md rounded-lg '>
 			<Link to={`/food/${product._id}`}>
 				<div className='relative'>
 					{isLoading ? (
@@ -36,14 +37,14 @@ export default function FilterChabora({ product }) {
 				</div>
 			</Link>
 			<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
-				<h2 className='text-sm pt-1 md:text-[16px] font-medium capitalize text-gray-800 drop-shadow-md'>
+				<h2 className='text-[13px] pt-1 md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 					{product.name}
 				</h2>
 				<p className='hidden md:block text-[13px] md:text-base text-slate-500 h-[55px] pb-[20px]'>
 					{product.description.substring(0, 60)}...
 				</p>
 				<div className='grid grid-cols-2 place-items-center gap-2 justify-items-stretch	'>
-					<span className='text-sm mobile:md drop-shadow-md md:text-lg font-semibold text-customPurple'>
+					<span className='text-sm mobile:md drop-shadow-md md:text-lg font-semibold text-orange-700'>
 						₹ {product.price}
 					</span>
 					{isAlreadyAddedToCart ? (
@@ -62,9 +63,11 @@ export default function FilterChabora({ product }) {
 								addToCart(product)
 								toast.success('Added to cart')
 							}}
-							className='bg-customPurple hover:bg-customDarkblue text-white rounded-lg shadow-md min-w-[50px] mobile:min-w-[100px]'
+							className='bg-orange-500 hover:bg-orange-600 text-white rounded-lg shadow-md min-w-[50px] mobile:min-w-[100px]'
 						>
-							Add Item
+							<div className='flex items-centers gap-2'>
+								<PlusCircle size={17} /> Add
+							</div>
 						</Button>
 					)}
 				</div>
