@@ -16,7 +16,7 @@ function Layout() {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setLoading(false)
-		}, 2000)
+		}, 300)
 
 		socket.on('test', (payload) => {
 			// console.log('from backend', payload)

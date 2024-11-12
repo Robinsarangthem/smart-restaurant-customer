@@ -25,6 +25,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 import ScrollToTop from '@/Element/ScrollToTop'
 import rooftopcafe from './../../assets/Images/rooftopcafe.jpg'
+import extd from '../../assets/Images/eXtd.1902.jpg'
 import RoofTopCafe from './RoofTopCafe'
 const FoodDisplay = ({ category }) => {
 	const { data, isLoading } = useFoodList()
@@ -119,16 +120,16 @@ const FoodDisplay = ({ category }) => {
 
 	return (
 		<div>
-			<div className=' flex items-center justify-center  mx-2 mt-2  '>
-				<div className='	flex items-center	gap-2  p-[3px] bg-customWhite rounded-md font-sans shadow-md'>
+			<div className=' flex items-center justify-center  mx-2 mt-2 p-1  '>
+				<div className='	flex items-center	gap-2  p-[5px] bg-customWhite rounded-md font-sans shadow-md'>
 					<img
-						src={rooftopcafe}
-						width={90}
-						height={90}
-						className=' w-[60px] h-[60px]  rounded-md'
+						src={extd}
+						width={50}
+						height={50}
+						className=' w-[90px] h-[50px]  rounded-md'
 					/>
-					<h1 className='text-[12px]    text-customBlack  font-sans md:text-lg font-semibold md:text-center'>
-						ChaBora 1902
+					<h1 className='text-[12px]  p-2   text-customBlack  font-sans md:text-lg font-semibold md:text-center'>
+						eXtd.1902
 					</h1>
 				</div>
 			</div>
@@ -180,10 +181,10 @@ const FoodDisplay = ({ category }) => {
 						src={rooftopcafe}
 						width={90}
 						height={90}
-						className=' w-[60px] h-[60px]  rounded-md'
+						className=' w-[90px] h-[60px]  rounded-md'
 					/>
-					<h2 className='uppercase text-[12px]  p-1	  text-customBlack  font-sans md:text-lg font-semibold md:text-center	'>
-						rooftop Cafe
+					<h2 className='uppercase text-[12px]  p-2	  text-customBlack  font-sans md:text-lg font-semibold md:text-center	'>
+						cha bora
 					</h2>
 				</div>
 			</div>
