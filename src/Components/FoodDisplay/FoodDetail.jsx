@@ -1,14 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
 import { useFoodList } from '../hooks/useFoodList'
 import { useStore } from '../context'
+import { Minus, Plus } from 'lucide-react'
 
 const FoodDetail = () => {
-	const { addToCart } = useStore()
+	const { addToCart, removeFromCart } = useStore()
 	const { foodId } = useParams()
 	const { data } = useFoodList()
 	console.log(data)
 
 	const foodItem = data.find((item) => item._id === foodId)
+	console.log(foodItem)
 	if (!foodItem) {
 		return <div>Items not found</div>
 	}
@@ -19,9 +21,7 @@ const FoodDetail = () => {
 			{/* </Link>	 */}
 			<div className='md:w-1/2'>
 				<img
-					className='rounded-lg  shadow-lg'
-					width={200}
-					height={200}
+					className='rounded-lg  shadow-lg w-full h-[300px]'
 					src={foodItem.image}
 					alt={foodItem.name}
 				/>
@@ -34,11 +34,12 @@ const FoodDetail = () => {
 				<p className='text-md md:text-xl text-slate-600 leading-7'>
 					{foodItem.description}
 				</p>
+
 				<button
 					onClick={() => addToCart(foodItem)}
-					className='transition duration-300 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold rounded-lg text-lg px-5 py-3 shadow-lg'
+					className='transition duration-300 text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold rounded-lg text-lg px-5 py-3 shadow-lg'
 				>
-					Add Item
+					Add to Cart
 				</button>
 			</div>
 		</div>

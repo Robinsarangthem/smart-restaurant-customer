@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
 import { PlusCircle } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 const RoofTopCafe = ({ product }) => {
 	const { _id, image, description, name, price } = product

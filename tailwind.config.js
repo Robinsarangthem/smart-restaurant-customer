@@ -1,42 +1,37 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	darkMode: ['class'],
+	darkMode: ['class'], // Enable dark mode using 'class' strategy
 	content: [
-		'./pages/**/*.{js,jsx}',
-		'./components/**/*.{js,jsx}',
-		'./app/**/*.{js,jsx}',
-		'./src/**/*.{js,jsx}',
+		'./pages/**/*.{js,jsx}', // Path to all pages
+		'./components/**/*.{js,jsx}', // Path to all components
+		'./app/**/*.{js,jsx}', // Path to app
+		'./src/**/*.{js,jsx}', // Path to source files
 	],
-	prefix: '',
 	theme: {
 		screens: {
-			mobile: '640px',
-			// => @media (min-width: 640px) { ... }
-
-			md: '768px',
-			// => @media (min-width: 768px) { ... }
-
-			lg: '1024px',
-			// => @media (min-width: 1024px) { ... }
-
-			xl: '1280px',
-			// => @media (min-width: 1280px) { ... }
-
-			'2xl': '1536px',
+			mobile: '640px', // Mobile-first (default)
+			md: '768px', // Medium screens
+			lg: '1024px', // Large screens
+			xl: '1280px', // Extra large screens
+			'2xl': '1536px', // 2X large screens
 		},
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1rem', // Default padding for mobile, can be adjusted for larger screens
 			screens: {
 				'2xl': '1400px',
+				xl: '1200px', // Slightly reduced for large screens
+				lg: '1.5rem',
+				md: '1rem',
+				mobile: '0.5rem', // Reduce padding for mobile devices
 			},
 		},
 		extend: {
 			translate: {
-				'z-0': 'translateZ(0)',
+				'z-0': 'translateZ(0)', // Hardware acceleration for 3D transforms
 			},
 			willChange: {
-				transform: 'transform',
+				transform: 'transform', // Only use for elements that animate often
 			},
 			keyframes: {
 				slideLeftFade: {
@@ -49,10 +44,9 @@ module.exports = {
 						opacity: '1',
 					},
 				},
-
 				slideRightFade: {
 					'0%': {
-						transform: ' translateX(-100%)',
+						transform: 'translateX(-100%)',
 						opacity: '0',
 					},
 					'100%': {
@@ -60,7 +54,6 @@ module.exports = {
 						opacity: '1',
 					},
 				},
-
 				'fade-in-down': {
 					'0%': {
 						opacity: '0',
@@ -94,11 +87,10 @@ module.exports = {
 				'animate-slideLeftFade': 'slideLeftFade 0.5s ease forwards',
 				'animate-slideRightFade': 'slideRightFade 0.5s ease forwards',
 				'fade-in-down': 'fade-in-down 1s ease-out',
-				'fade-out-up': 'fade-in-down 1s ease-out',
+				'fade-out-up': 'fade-out-up 1s ease-out',
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
-
 			colors: {
 				customBlue: '#98BDFF',
 				customDarkblue: '#4B49AC',
@@ -108,7 +100,7 @@ module.exports = {
 				customGreen: '#3F784C',
 				customThistle: '#D5C6E0',
 				customSilver: '#E1DEE9',
-				customGray: ' #00bcd4',
+				customGray: '#00bcd4',
 				customWhite: '#FFFFFF',
 				customBlack: '#000000',
 				deeppurple: '#1c2938',
@@ -165,15 +157,13 @@ module.exports = {
 					},
 				},
 				'.carousel-item': {
-					transform: 'translate3d(0, 0, 0)',
+					transform: 'translate3d(0, 0, 0)', // Hardware acceleration for carousel items
 					transition: 'transform 0.5s ease-in-out',
 				},
-
 				'.swiper-container': {
-					transform: 'translateZ(0)', // Hardware acceleration
+					transform: 'translateZ(0)', // Hardware acceleration for swiper
 					willChange: 'transform', // Optimize for transform animations
 				},
-
 				'.transition-transform-ease': {
 					transitionProperty: 'transform',
 					transitionTimingFunction: 'ease-in-out',
@@ -181,6 +171,9 @@ module.exports = {
 				},
 			})
 		},
-		require('tailwindcss-animate'),
+		require('tailwindcss-animate'), // Include the animation plugin for smooth transitions
 	],
+	tailwindcss: {},
+	autoprefixer: {},
+	...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}), // Minify CSS in production
 }

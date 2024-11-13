@@ -151,6 +151,7 @@ const FoodDisplay = ({ category }) => {
 						640: { slidesPerView: 3 },
 						768: { slidesPerView: 4 },
 						1024: { slidesPerView: 4 },
+						1280: { slidesPerView: 5 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -205,6 +206,7 @@ const FoodDisplay = ({ category }) => {
 						640: { slidesPerView: 3 },
 						768: { slidesPerView: 4 },
 						1024: { slidesPerView: 4 },
+						1280: { slidesPerView: 5 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -236,7 +238,7 @@ const FoodDisplay = ({ category }) => {
 				>
 					{category === 'All' ? 'Menu ' : <p>{category}</p>}
 				</h1>
-				<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 gap-4 p-2 mobile:p-5'>
+				<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 gap-4 p-2 mobile:p-5'>
 					{productsWithCategory
 						.slice(0, displayedItems)
 						.map((product, index) => (
@@ -261,7 +263,7 @@ const FoodDisplay = ({ category }) => {
 						<Button
 							className='bg-customRed hover:bg-red-600'
 							onClick={loadMoreItems}
-							disabled={loading} // Disable while loading
+							disabled={loading}
 						>
 							{loading ? 'Loading...' : 'Load more'}
 						</Button>
@@ -272,4 +274,4 @@ const FoodDisplay = ({ category }) => {
 	)
 }
 
-export default FoodDisplay
+export default React.memo(FoodDisplay)

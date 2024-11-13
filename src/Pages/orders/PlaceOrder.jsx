@@ -3,6 +3,7 @@ import useAuth from '@/Components/hooks/useAuth'
 import { Button } from '@/Components/ui/button'
 import { Axios } from '@/utils/axiosSetup'
 import { useMutation } from '@tanstack/react-query'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
@@ -146,4 +147,4 @@ const PlaceOrder = ({
 	)
 }
 
-export default PlaceOrder
+export default React.memo(PlaceOrder)

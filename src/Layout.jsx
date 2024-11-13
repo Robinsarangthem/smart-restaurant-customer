@@ -36,17 +36,15 @@ function Layout() {
 		})
 	}, [])
 	return loading ? (
-		<div className='h-screen flex justify-center items-center bg-gray-100'>
-			<LogoLoading /> {/* Your loading logo/spinner */}
+		// Loading state
+		<div className='h-[100dvh] flex justify-center items-center bg-slate-100'>
+			<LogoLoading />
 		</div>
 	) : (
 		<>
 			<ScrollToTop />
 			<Header />
-			<main
-				className='h-full bg-slate-200 pt-2 pb-2'
-				style={{ scrollBehavior: 'smooth' }}
-			>
+			<main className='min-h-[100dvh] bg-slate-200 relative overflow-x-hidden'>
 				<Outlet />
 			</main>
 		</>

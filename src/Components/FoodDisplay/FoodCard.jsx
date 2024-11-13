@@ -6,7 +6,7 @@ import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
 import { PlusCircle } from 'lucide-react'
 
-const FoodCard = React.memo(({ product }) => {
+const FoodCard = ({ product }) => {
 	const { _id, image, description, name, price } = product
 	const { addToCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
@@ -92,6 +92,6 @@ const FoodCard = React.memo(({ product }) => {
 			</div>
 		</div>
 	)
-})
+}
 
-export default FoodCard
+export default React.memo(FoodCard)
