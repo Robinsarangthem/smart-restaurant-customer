@@ -5,10 +5,11 @@ import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
 import { Skeleton } from '../ui/skeleton'
 import { PlusCircle } from 'lucide-react'
+import QuantityButton from '@/Element/QuantityButton'
 
 const FoodCard = ({ product }) => {
 	const { _id, image, description, name, price } = product
-	const { addToCart, deleteCart, cart } = useStore()
+	const { addToCart, deleteCart, cart, removeFromCart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
 	const [isLoading, setIsloading] = useState(true)
 	useEffect(() => {
@@ -31,7 +32,7 @@ const FoodCard = ({ product }) => {
 			}
 		}
 	}, [image])
-
+	const productCart = cart.find((items) => items._id === _id)
 	return (
 		<div className='p-1 bg-customWhite shadow-md rounded-lg   	'>
 			<Link to={`/food/${_id}`}>
@@ -53,22 +54,41 @@ const FoodCard = ({ product }) => {
 					)}
 				</div>
 			</Link>
-			<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
-				<h2 className='text-sm pt-1 md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
+			<div className='p-1 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 '>
+				<h2 className='text-[15px]  md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 					{name}
 				</h2>
-				<p className='text-[13px] md:text-base text-slate-500 h-[55px] pb-[20px]'>
+				<p className='text-sm md:text-base text-slate-500 h-[55px]  '>
 					{description.substring(0, 60)}...
 				</p>
-				<div className='grid grid-cols-2 place-items-center gap-2 justify-items-stretch	'>
-					<span className='text-sm mobile:md drop-shadow-md md:text-lg font-semibold text-orange-700'>
+				<div className='flex justify-between items-center gap-2	min-h-[40px] md:min-h-[50px] '>
+					<span className='text-[15px]  drop-shadow-md md:text-lg font-semibold text-orange-700'>
 						₹ {price}
 					</span>
-					<Button
+					{!productCart ? (
+						<Button
+							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px] '
+							onClick={() => {
+								addToCart(product)
+								toast.success('Added to Cart')
+							}}
+						>
+							<div className='flex items-centers gap-2'>
+								<PlusCircle size={17} /> Add
+							</div>
+						</Button>
+					) : (
+						<QuantityButton
+							item={productCart}
+							onDecrease={removeFromCart}
+							onIncrease={addToCart}
+							deleteCart={deleteCart}
+						/>
+					)}
+					{/* <Button
 						onClick={() => {
 							if (isAlreadyAddedToCart) {
-								deleteCart(_id)
-								toast.error('Removed from cart')
+								return <QuantityButton />
 							} else {
 								addToCart(product)
 								toast.success('Added to cart')
@@ -87,7 +107,7 @@ const FoodCard = ({ product }) => {
 								<PlusCircle size={17} /> Add
 							</div>
 						)}
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 		</div>

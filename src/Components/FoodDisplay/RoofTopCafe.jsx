@@ -5,11 +5,13 @@ import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
 import { PlusCircle } from 'lucide-react'
 import { toast } from 'react-toastify'
+import QuantityButton from '@/Element/QuantityButton'
 
 const RoofTopCafe = ({ product }) => {
 	const { _id, image, description, name, price } = product
-	const { addToCart, deleteCart, cart } = useStore()
+	const { addToCart, removeFromCart, deleteCart, cart } = useStore()
 	const isAlreadyAddedToCart = cart.some((item) => item._id === _id)
+	const productCart = cart.find((item) => item._id === _id)
 	const [isLoading, setIsloading] = useState(true)
 	useEffect(() => {
 		if (image) {
@@ -53,18 +55,40 @@ const RoofTopCafe = ({ product }) => {
 					)}
 				</div>
 			</Link>
-			<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
-				<h2 className='text-[13px] pt-1 md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
+			<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 	'>
+				<h2 className='text-[15px] pt-1 md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 					{name}
 				</h2>
 				<p className=' hidden md:block text-[12px] md:text-base text-slate-500 h-[55px] pb-[20px]'>
 					{description.substring(0, 60)}...
 				</p>
-				<div className='grid grid-cols-2 place-items-center gap-2 justify-items-stretch	'>
-					<span className='text-sm mobile:md drop-shadow-md md:text-lg font-semibold text-orange-700'>
+				<div className='flex justify-between items-center gap-2 min-h-[40px] md:min-h-[50px]   '>
+					<span className='text-[15px] mobile:md drop-shadow-md md:text-lg font-semibold text-orange-700'>
 						₹ {price}
 					</span>
-					<Button
+
+					{isAlreadyAddedToCart ? (
+						<QuantityButton
+							item={productCart}
+							onDecrease={removeFromCart}
+							onIncrease={addToCart}
+							deleteCart={deleteCart}
+						/>
+					) : (
+						<Button
+							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px] '
+							onClick={() => {
+								addToCart(product)
+								toast.success('Added to Cart')
+							}}
+						>
+							<div className='flex items-center gap-2'>
+								<PlusCircle size={17} /> Add
+							</div>
+						</Button>
+					)}
+
+					{/* <Button
 						onClick={() => {
 							if (isAlreadyAddedToCart) {
 								deleteCart(_id)
@@ -78,7 +102,7 @@ const RoofTopCafe = ({ product }) => {
 							isAlreadyAddedToCart
 								? 'bg-red-600 hover:bg-red-700'
 								: 'bg-orange-500 hover:bg-orange-600'
-						} text-white rounded-md shadow-md min-w-[50px] mobile:min-w-[100px]`}
+						} text-white rounded-md shadow-md min-w-[50px] `}
 					>
 						{isAlreadyAddedToCart ? (
 							'Remove'
@@ -87,7 +111,7 @@ const RoofTopCafe = ({ product }) => {
 								<PlusCircle size={17} /> Add
 							</div>
 						)}
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 		</div>

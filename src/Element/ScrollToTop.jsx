@@ -5,9 +5,11 @@ export default function ScrollToTop() {
 	const { pathname } = useLocation()
 
 	useEffect(() => {
+		const isLowEndDevice =
+			navigator.userAgent.includes('Android') && window.devicePixelRatio < 2
 		window.scrollTo({
 			top: 0,
-			behavior: 'smooth',
+			behavior: isLowEndDevice ? 'auto' : 'smooth',
 		})
 
 		// Define a base title

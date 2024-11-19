@@ -46,10 +46,10 @@ function Header() {
 					<NavLink
 						to='/'
 						onClick={handleOnClickToTop}
-						className=' flex items-center pt-[10%] text-slate-800  font-semibold min-w-[140px]'
+						className=' flex items-center pt-3	 text-slate-800  font-semibold '
 					>
 						<img
-							className='w-[120px] pt-2 sm:w-16 md:w-36 md:pt-2 '
+							className='w-28 pt-2 sm:w-16 md:w-36 md:pt-2 '
 							src={Logo}
 							alt=''
 						/>

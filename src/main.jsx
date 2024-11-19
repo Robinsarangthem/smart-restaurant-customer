@@ -22,9 +22,10 @@ import FoodDetail from './Components/FoodDisplay/FoodDetail.jsx'
 import WelcomePage from './Pages/welcomePage/WelcomePage.jsx'
 import OrderDetails from './Pages/orders/OrderDetails.jsx'
 import RootLayout from './Element/RootLayout.jsx'
-import Search from './Element/Search.jsx'
+import Search from './Components/search/Search.jsx'
 import ProtectedRoute from './Components/ProtectedRoute.jsx'
 import { ToastContainer } from 'react-toastify'
+import SearchResults from './Components/search/SearchResults.jsx'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
 				<Route path='/orders' element={<Orders />} />
 				<Route path='/order_status' element={<OrderDetails />} />
 				<Route path='/carts' element={<Cart />} />
+				<Route path='/search' element={<SearchResults />} />
 			</Route>
 			{/* </Route> */}
 			<Route path='*' element={<PageNotFound />} />

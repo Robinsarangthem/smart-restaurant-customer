@@ -1,40 +1,63 @@
-import React, { useEffect } from 'react'
-import { useStore } from '../../../Components/context'
-import { baseURL } from '../../../utils/axiosSetup'
-import { Trash2 } from 'lucide-react'
+// CartPage.js
+import React from 'react'
+import CartItem from './CartItem'
+import OrderSummary from './OrderSummary'
+import CartEmpty from './CartEmpty'
+import { useNavigate } from 'react-router'
+import Header from './Header'
+import CartItemsList from './CartItemList'
+const CartPage = ({
+	cartItems,
+	onRemove,
+	onIncrease,
+	onDecrease,
+	deleteCart,
+}) => {
+	const navigate = useNavigate()
 
-const CartPage = ({ item }) => {
-	const { addToCart, removeFromCart, deleteCart } = useStore()
+	const handleNavigateHome = () => {
+		navigate('/')
+	}
+
+	const getTotalAmount = () => {
+		return cartItems.reduce((total, cartItem) => {
+			const items = cartItems.find((product) => product._id === cartItem._id)
+			if (items) {
+				return (total += items.price * cartItem.quantity)
+			}
+			return total
+		}, 0)
+	}
 
 	return (
-		<div className='flex  items-center space-x-4 py-2 border-b bg-customWhite px-1 rounded-md shadow-md '>
-			<img
-				src={item.image}
-				alt={item.name}
-				className='w-16 h-16 object-cover rounded'
-			/>
-			<div className='flex-grow'>
-				<h3 className='font-semibold'>{item.name}</h3>
-				<p className='text-gray-600'>₹ {item.price}</p>
+		<div className=''>
+			<div className='max-w-6xl mx-auto px-4 py-8'>
+				<Header handleNavigateHome={handleNavigateHome} />
+				{cartItems.length > 0 ? (
+					<div className='lg:grid lg:grid-cols-12 lg:gap-8'>
+						{/* Cart Items List */}
+						<div className='lg:col-span-8'>
+							<CartItemsList
+								items={cartItems}
+								onIncrease={onIncrease}
+								onDecrease={onDecrease}
+								onRemove={onRemove}
+								deleteCart={deleteCart}
+							/>
+						</div>
+
+						{/* Order Summary */}
+						<div className='lg:col-span-4 mt-8 lg:mt-0'>
+							<OrderSummary
+								totalAmount={getTotalAmount}
+								// handleCheckout={handleCheckout}
+							/>
+						</div>
+					</div>
+				) : (
+					<CartEmpty />
+				)}
 			</div>
-			<div className='flex items-center space-x-2'>
-				<button
-					onClick={() => removeFromCart(item._id)}
-					className='px-2 py-1 bg-gray-200 rounded'
-				>
-					-
-				</button>
-				<span>{item.quantity}</span>
-				<button
-					onClick={() => addToCart(item)}
-					className='px-2 py-1 bg-gray-200 rounded'
-				>
-					+
-				</button>
-			</div>
-			<button onClick={() => deleteCart(item._id)} className='text-red-500'>
-				<Trash2 size={20} />
-			</button>
 		</div>
 	)
 }

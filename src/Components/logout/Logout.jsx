@@ -44,7 +44,7 @@ export default function Logout() {
 
 	return (
 		<div>
-			<button onClick={mutate}>
+			<button>
 				{isPending ? (
 					<div className='flex items-center'>
 						<ClipLoader size={20} color='red' />

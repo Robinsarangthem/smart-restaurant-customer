@@ -120,7 +120,7 @@ const FoodDisplay = ({ category }) => {
 
 	return (
 		<div>
-			<div className=' flex items-center justify-center  mx-2 mt-2 p-1  '>
+			<div className=' flex items-center justify-center   mt-2   '>
 				<div className='	flex items-center	gap-2  p-[5px] bg-customWhite rounded-md font-sans shadow-md'>
 					<img
 						src={extd}
@@ -134,7 +134,7 @@ const FoodDisplay = ({ category }) => {
 				</div>
 			</div>
 
-			<div className='w-full   mx-auto px-3 p-2	'>
+			<div className='w-full   mx-auto 	'>
 				<Swiper
 					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
 					spaceBetween={10}
@@ -147,11 +147,11 @@ const FoodDisplay = ({ category }) => {
 					// watchOverflow={true}
 					className='rounded-md swiper-container'
 					breakpoints={{
-						320: { slidesPerView: 2, spaceBetween: 2 },
-						640: { slidesPerView: 3 },
-						768: { slidesPerView: 4 },
-						1024: { slidesPerView: 4 },
-						1280: { slidesPerView: 5 },
+						320: { slidesPerView: 2, spaceBetween: 10 },
+						550: { slidesPerView: 2, spaceBetween: 8 },
+						640: { slidesPerView: 2, spaceBetween: 15 },
+						1024: { slidesPerView: 4, spaceBetween: 20 },
+						1280: { slidesPerView: 5, spaceBetween: 25 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -189,7 +189,7 @@ const FoodDisplay = ({ category }) => {
 					</h2>
 				</div>
 			</div>
-			<div className='w-full   mx-auto px-3 p-2	'>
+			<div className='w-full   mx-auto px-1 	'>
 				<Swiper
 					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
 					spaceBetween={10}
@@ -202,11 +202,11 @@ const FoodDisplay = ({ category }) => {
 					// watchOverflow={true}
 					className='rounded-md swiper-container'
 					breakpoints={{
-						320: { slidesPerView: 2, spaceBetween: 2 },
-						640: { slidesPerView: 3 },
-						768: { slidesPerView: 4 },
-						1024: { slidesPerView: 4 },
-						1280: { slidesPerView: 5 },
+						320: { slidesPerView: 2, spaceBetween: 10 },
+						550: { slidesPerView: 2, spaceBetween: 8 },
+						// 640: { slidesPerView: 3, spaceBetween: 15 },
+						1024: { slidesPerView: 4, spaceBetween: 20 },
+						1280: { slidesPerView: 5, spaceBetween: 25 },
 					}}
 					speed={mobileSpeed}
 					touchEventsTarget='container'
@@ -230,7 +230,7 @@ const FoodDisplay = ({ category }) => {
 					)}
 				</Swiper>
 			</div>
-			<div className='border-b-4 border-orange-400'></div>
+			<div className='border-b-4 border-orange-400 mx-8'></div>
 			<Suspense fallback={<PropagateLoader />}>
 				<h1
 					ref={menuRef}
@@ -238,7 +238,7 @@ const FoodDisplay = ({ category }) => {
 				>
 					{category === 'All' ? 'Menu ' : <p>{category}</p>}
 				</h1>
-				<div className='place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 gap-4 p-2 mobile:p-5'>
+				<div className='	place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 gap-4 p-2 mobile:p-5'>
 					{productsWithCategory
 						.slice(0, displayedItems)
 						.map((product, index) => (

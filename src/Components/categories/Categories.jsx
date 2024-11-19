@@ -58,7 +58,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 		dots: false,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 5,
+		slidesToShow: 4,
 		slidesToScroll: 3,
 		arrows: true,
 		prevArrow: <CustomPrevArrow />,

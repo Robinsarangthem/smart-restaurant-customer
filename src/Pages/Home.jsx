@@ -1,11 +1,13 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import Search from '@/Element/Search'
+import Search from '@/Components/search/Search'
 import { useQuery } from '@tanstack/react-query'
 import { Axios } from '@/utils/axiosSetup'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { useNavigate, useParams } from 'react-router'
 import { Skeleton } from '@/Components/ui/skeleton'
+import SkeletonFallback from '@/Components/categories/component/SkeletonFallBack'
+import FoodCardSkeleton from '@/Components/FoodDisplay/FoodCardSkeleton'
 const Categories = React.lazy(() =>
 	import('../Components/categories/Categories')
 )
@@ -25,6 +27,7 @@ function Home() {
 	const { data: categoryList } = useQuery({
 		queryKey: ['category'],
 		queryFn: fetchingCategory,
+		staleTime: 1000 * 60 * 5,
 	})
 
 	useEffect(() => {
@@ -48,7 +51,7 @@ function Home() {
 			<section>
 				<Search />
 				<div>
-					<Suspense fallback={<Skeleton className=' h-10 w-full' />}>
+					<Suspense fallback={<SkeletonFallback />}>
 						<Categories
 							key={category._id}
 							category={category}
@@ -58,7 +61,7 @@ function Home() {
 					</Suspense>
 				</div>
 				<div key={category._id}>
-					<Suspense fallback={<div> Loading .... </div>}>
+					<Suspense fallback={<FoodCardSkeleton />}>
 						<FoodDisplay category={category} />
 					</Suspense>
 				</div>

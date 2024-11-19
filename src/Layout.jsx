@@ -44,7 +44,7 @@ function Layout() {
 		<>
 			<ScrollToTop />
 			<Header />
-			<main className='min-h-[100dvh] bg-slate-200 relative overflow-x-hidden'>
+			<main className='min-h-[100svh] bg-slate-200 pt-4 relative overflow-x-hidden'>
 				<Outlet />
 			</main>
 		</>

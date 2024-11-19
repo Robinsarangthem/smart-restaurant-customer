@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { useStore } from '../../Components/context'
-import PlaceOrder from '../orders/PlaceOrder'
-import CartEmpty from './components/CartEmpty'
+// Cart.js
+import React from 'react'
+import { useStore } from '@/Components/context'
 import CartPage from './components/CartPage'
+import { useNavigate } from 'react-router'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Axios } from '../../utils/axiosSetup'
-import { useFoodList } from '../../Components/hooks/useFoodList'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useFoodList } from '@/Components/hooks/useFoodList'
 
-function Cart() {
-	const { cart, clearCart } = useStore()
-
-	// const { token } = useAuth()
-
+const Cart = () => {
+	const { cart, clearCart, addToCart, removeFromCart, deleteCart } = useStore()
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
 
@@ -91,52 +85,18 @@ function Cart() {
 		)
 	}
 
-	const getTotalAmount = () => {
-		return cart.reduce((total, cartItems) => {
-			const items = cart.find((product) => product._id === cartItems._id)
-			if (items) {
-				return (total += items.price * cartItems.quantity)
-			}
-			return total
-		}, 0)
-	}
-
 	return (
-		<div className='h-[100svh] '>
-			<div
-				className={
-					!cart.length
-						? 'flex flex-col items-center gap-2 md:mx-10'
-						: 'md:flex md:justify-between md:mx-10'
-				}
-			>
-				<div className='container mx-auto px-4 py-8'>
-					<h1 className='text-2xl font-bold mb-6'>Your Cart</h1>
-					<div className='lg:flex lg:justify-center lg:space-x-8'>
-						<div className='lg:w-2/3 grid gap-3'>
-							{cart.map((item, i) => {
-								const cartItem = cart.find(
-									(cartItem) => cartItem._id === item._id
-								)
-								return cartItem ? <CartPage key={i} item={cartItem} /> : null
-							})}
-						</div>
-					</div>
-				</div>
-				{!cart.length ? (
-					<CartEmpty />
-				) : (
-					<PlaceOrder
-						getTotalAmount={getTotalAmount}
-						cart={cart}
-						handleOrderCreated={handleOrderCreated}
-						isPending={isPending}
-						totalOrderLength={totalOrderLength}
-						clearCart={clearCart}
-					/>
-				)}
-			</div>
-		</div>
+		<CartPage
+			cartItems={cart}
+			deleteCart={deleteCart}
+			onRemove={removeFromCart}
+			onIncrease={addToCart}
+			onDecrease={removeFromCart}
+			clearCart={clearCart}
+			handleOrderCreated={handleOrderCreated}
+			isPending={isPending}
+			totalOrderLength={totalOrderLength}
+		/>
 	)
 }
 

@@ -21,6 +21,9 @@ export const FoodListProvider = ({ children }) => {
 		queryFn: async () => {
 			return Axios.get('/api/food/foodList').then((data) => data.data.Data)
 		},
+		staleTime: 5 * 60 * 1000,
+		cacheTime: 30 * 60 * 1000,
+		enabled: foodList.length === 0,
 	})
 
 	useEffect(() => {

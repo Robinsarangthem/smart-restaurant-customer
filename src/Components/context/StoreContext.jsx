@@ -57,7 +57,6 @@ export const StoreContextProvider = ({ children }) => {
 		cart,
 		addToCart,
 		removeFromCart,
-
 		clearCart,
 		deleteCart,
 	}
