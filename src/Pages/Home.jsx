@@ -5,7 +5,6 @@ import { Axios } from '@/utils/axiosSetup'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { useNavigate, useParams } from 'react-router'
-import { Skeleton } from '@/Components/ui/skeleton'
 import SkeletonFallback from '@/Components/categories/component/SkeletonFallBack'
 import FoodCardSkeleton from '@/Components/FoodDisplay/FoodCardSkeleton'
 const Categories = React.lazy(() =>

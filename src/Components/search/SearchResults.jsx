@@ -1,6 +1,5 @@
 import { Axios } from '@/utils/axiosSetup'
 import { useQuery } from '@tanstack/react-query'
-import { error } from 'console'
 import React from 'react'
 import { useLocation } from 'react-router'
 import { Skeleton } from '../ui/skeleton'

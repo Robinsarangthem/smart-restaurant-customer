@@ -3,9 +3,9 @@ import { useStore } from '../context'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
-import { Skeleton } from '../ui/skeleton'
 import { PlusCircle } from 'lucide-react'
 import QuantityButton from '@/Element/QuantityButton'
+import { Skeleton } from '../ui/skeleton'
 
 const FoodCard = ({ product }) => {
 	const { _id, image, description, name, price } = product

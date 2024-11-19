@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/Components/ui/skeleton'
 
 const SkeletonFallback = () => (
 	<div className='relative max-w-full pb-4 border-b-4 border-orange-400 px-2'>
