@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../context'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
-// import Search from '../../Element/Search'
 import Logo from '../../assets/Images/Achaathak-removebg-preview (1).png'
 
 import table from '../../../src/assets/Images/coffee-table.png'
 
-// import { X } from 'lucide-react'
-
 import Logout from '../logout/Logout'
 import Hamburger from 'hamburger-react'
+import { Button } from '../ui/button'
 
 function Header() {
-	// const navigate = useNavigate()
-
 	const [isToggle, setIsToggle] = useState(false)
 	const { cart, search, setSearch } = useStore()
 
@@ -33,10 +29,10 @@ function Header() {
 	//
 	return (
 		<div className='w-full bg-customWhite sticky top-0 z-10 shadow-lg'>
-			<div className='   h-16 flex justify-between md:justify-around mx-auto px-[10px] md:px-8 items-center shadow-lg md:max-w-full md:mx-0 relative  '>
-				<div className='flex h-[30px]'>
+			<div className='h-16 flex justify-between md:justify-around mx-auto px-[10px] md:px-8 items-center shadow-lg md:max-w-full md:mx-0 relative  '>
+				<div className='flex gap-3 mx-2  h-[30px]'>
 					{tableNo ? (
-						<div className=' flex items-center gap-[5px] md:gap-3 lg:gap-4 bg-slate-100 rounded-md px-2  text-slate-500 s'>
+						<div className=' flex items-center gap-[10px] md:gap-4 lg:gap-4 bg-slate-100 rounded-md px-2  text-slate-500 s'>
 							<img className='w-[17px]' src={table} />
 							<p className='text-md md:text-lg lg:text-xl'>{tableNo}</p>
 						</div>
@@ -67,6 +63,9 @@ function Header() {
 							<NavLink to='/Orders' className='hover:text-slate-400'>
 								Orders
 							</NavLink>
+							<NavLink to='/landing' className='hover:text-slate-400'>
+								Qr Scanner
+							</NavLink>
 							<NavLink to='/carts' className='hover:text-slate-400'>
 								<span className='  text-3xl bi bi-cart-fill '></span>
 								{cartItemCount > 0 && (
@@ -84,7 +83,7 @@ function Header() {
 						<NavLink to='/carts'>
 							<span className='  text-2xl text-slate-800 bi bi-cart-fill '></span>
 							{cartItemCount > 0 && (
-								<div className='bg-orange-600 absolute -top-1 right-[45px] rounded-full px-1  text-white text-sm shadow-lg'>
+								<div className='bg-orange-600 absolute -top-1 right-[45px] rounded-full  px-1  text-white text-sm shadow-lg'>
 									{cartItemCount}
 								</div>
 							)}
@@ -108,7 +107,7 @@ function Header() {
 								isToggle ? 'animate-fade-in-down' : 'animate-fade-out-up'
 							} `}
 						>
-							<ul className=' shadow-xl shadow-slate-300 min-h-[40%] w-full  flex flex-col justify-center  px-10 py-3 items-center space-y-5  '>
+							<ul className=' shadow-md overflow-hidden text-black min-h-[40%] w-full  flex flex-col justify-center  px-10 py-3 items-center space-y-5  '>
 								<NavLink to='/' onClick={() => setIsToggle(!isToggle)}>
 									<div className='block px-3 rounded-md py-2  hover:bg-sky-600 '>
 										Home
@@ -134,6 +133,13 @@ function Header() {
 									onClick={() => setIsToggle(!isToggle)}
 								>
 									<span className='text-3xl bi bi-cart-fill '></span>
+								</NavLink>
+								<NavLink
+									to='/landing'
+									className='block px-3 rounded-md py-2  hover:bg-sky-600'
+									onClick={() => setIsToggle(!isToggle)}
+								>
+									<Button> Qr Scanner </Button>
 								</NavLink>
 							</ul>
 						</div>

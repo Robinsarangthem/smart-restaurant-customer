@@ -30,18 +30,18 @@ import SearchResults from './Components/search/SearchResults.jsx'
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route element={<RootLayout />}>
-			<Route element={<ProtectedRoute />}>
-				<Route element={<Layout />}>
-					<Route path='/' element={<Home />} />
-					<Route path=':category' element={<Home />} />
-					<Route path='/contact' element={<Contact />} />
-					<Route path='food/:foodId' element={<FoodDetail />} />
-					<Route path='/orders' element={<Orders />} />
-					<Route path='/order_status' element={<OrderDetails />} />
-					<Route path='/carts' element={<Cart />} />
-					<Route path='/search' element={<SearchResults />} />
-				</Route>
+			{/* <Route element={<ProtectedRoute />}> */}
+			<Route element={<Layout />}>
+				<Route path='/' element={<Home />} />
+				<Route path=':category' element={<Home />} />
+				<Route path='/contact' element={<Contact />} />
+				<Route path='food/:foodId' element={<FoodDetail />} />
+				<Route path='/orders' element={<Orders />} />
+				<Route path='/order_status' element={<OrderDetails />} />
+				<Route path='/carts' element={<Cart />} />
+				<Route path='/search' element={<SearchResults />} />
 			</Route>
+			{/* </Route> */}
 			<Route path='*' element={<PageNotFound />} />
 			<Route>
 				<Route path='/tables/:id' element={<Tables />} />

@@ -14,7 +14,7 @@ export default function Logout() {
 	async function handleLogout() {
 		const tablesNo = localStorage.getItem('tables')
 		const tables = JSON.parse(tablesNo)
-		console.log(tables.id)
+		console.log(tables)
 		try {
 			await Axios.delete('/api/customer/delete', {
 				data: {
