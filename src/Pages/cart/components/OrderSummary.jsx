@@ -20,7 +20,8 @@ const OrderSummary = ({
 	// console.log('total amount', totalAmount)
 	// console.log(cartItems)
 	// console.log('orderSummery ', handleOrderCreated)
-	const { token } = useAuth()
+	// const { token } = useAuth()
+	const token = localStorage.getItem('token')
 	// const { clearCart } = useStore()
 
 	if (isErrorOderCreated) {
@@ -68,8 +69,8 @@ const OrderSummary = ({
 			if (data.success) {
 				console.log(data)
 				toast.success(data.msg || 'Order placed successfully')
-				navigate('/orders', { replace: true, state: data.order })
 				clearCart()
+				navigate('/orders', { replace: true, state: data.order })
 				console.log('object')
 				console.log(data.order)
 			} else {
