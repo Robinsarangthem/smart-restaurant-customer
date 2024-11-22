@@ -19,8 +19,6 @@ const FoodDetail = () => {
 	const navigate = useNavigate()
 	const cartItems = cart?.find((item) => item._id === foodId)
 	const foodItems = data?.find((item) => item._id === foodId)
-	console.log('foodItems', foodItems)
-	console.log(cartItems)
 
 	const handleContinueOrder = () => {
 		navigate('/')
@@ -28,13 +26,13 @@ const FoodDetail = () => {
 
 	return (
 		<div>
-			{/* <button
+			<button
 				onClick={handleContinueOrder}
 				className='flex items-center text-gray-600 hover:text-gray-800'
 			>
 				<ArrowLeft className='w-5 h-5 mr-2 ' size={30} />
 				back
-			</button> */}
+			</button>
 			<div className=' overflow-auto  pt-4 md:p-3  flex justify-center items-center  '>
 				<div className='bg-white rounded-xl max-w-sm shadow-md overflow-hidden md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6'>
 					{/* Image */}

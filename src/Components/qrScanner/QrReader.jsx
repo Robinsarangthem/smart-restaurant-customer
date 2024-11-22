@@ -74,19 +74,24 @@ const QrReader = () => {
 	}, [qrOn])
 
 	return (
-		<div className='qr-reader'>
-			{/* QR */}
-			<video ref={videoEl}></video>
-			<div ref={qrBoxEl} className='qr-box'>
+		<div className='relative mx-2'>
+			{/* Black background with opacity */}
+			<div className='absolute inset-0 bg-black opacity-70 z-10'></div>
+
+			{/* QR Scanner Video */}
+			<video ref={videoEl} className='w-full h-full object-cover z-0' />
+
+			{/* QR Scan Area (box) */}
+			<div
+				ref={qrBoxEl}
+				className='absolute inset-0 flex justify-center items-center z-20'
+			>
 				<img
 					src={QrFrame}
 					alt='Qr Frame'
-					width={256}
-					height={256}
-					className='qr-frame'
+					className='w-28 h-28 md:w-48 md:h-48'
 				/>
 			</div>
-
 			{/* Show Data Result if scan is success */}
 			{/* {scannedResult && (
 				<p
@@ -101,7 +106,7 @@ const QrReader = () => {
 					Scanned Result: {scannedResult}
 				</p>
 			)} */}
-			{scannedResult && (window.location.href = scannedResult	)}
+			{scannedResult && (window.location.href = scannedResult)}
 		</div>
 	)
 }

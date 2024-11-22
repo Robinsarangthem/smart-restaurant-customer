@@ -184,7 +184,6 @@ export default function Search() {
 		setSuggestion([])
 		navigate(`/search?foodName=${suggestion.name}`)
 	}
-	console.log('suggestion word', suggestion.name)
 	return (
 		<div>
 			<form onSubmit={handleSearch}>

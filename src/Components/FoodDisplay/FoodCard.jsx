@@ -7,37 +7,73 @@ import { PlusCircle } from 'lucide-react'
 import QuantityButton from '@/Element/QuantityButton'
 import { Skeleton } from '../ui/skeleton'
 import LazyLoad from 'react-lazyload'
+import { error } from 'console'
+
+const optimizeImage = async (
+	imageUrl,
+	maxWidth = 300,
+	maxHeight = 300,
+	quality = 0.8
+) => {
+	return new Promise((resolve, reject) => {
+		const img = new Image()
+		img.src = imageUrl
+		img.crossOrigin = 'anonymous' // To handle cross-origin images
+
+		img.onload = () => {
+			const canvas = document.createElement('canvas')
+			const ctx = canvas.getContext('2d')
+
+			let width = img.width
+			let height = img.height
+
+			// Maintain aspect ratio
+			if (width > height) {
+				if (width > maxWidth) {
+					height *= maxWidth / width
+					width = maxWidth
+				}
+			} else {
+				if (height > maxHeight) {
+					width *= maxHeight / height
+					height = maxHeight
+				}
+			}
+
+			canvas.width = width
+			canvas.height = height
+			ctx.drawImage(img, 0, 0, width, height)
+
+			// Convert canvas content to a compressed Data URL
+			const optimizedDataUrl = canvas.toDataURL('image/jpeg', quality)
+			resolve(optimizedDataUrl)
+		}
+
+		img.onerror = () => reject('Image failed to load.')
+	})
+}
 
 const FoodCard = ({ product }) => {
 	const { _id, image, description, name, price } = product
 	const { addToCart, deleteCart, cart, removeFromCart } = useStore()
 	const [isLoading, setIsLoading] = useState(true)
-
+	const [optimizedImage, setOptimizeImage] = useState(true)
 	// Preload image when image URL is available
 	useEffect(() => {
 		if (image) {
-			// Create a link element for preloading the image
-			const link = document.createElement('link')
-			link.rel = 'preload'
-			link.as = 'image'
-			link.href = image
-			document.head.appendChild(link)
-
-			const img = new Image()
-			img.src = image
-			img.onload = () => {
-				setIsLoading(false)
-			}
-			// Cleanup: remove the link when the component unmounts or `image` changes
-			return () => {
-				document.head.removeChild(link)
-			}
+			optimizeImage(image)
+				.then((optimized) => {
+					setOptimizeImage(optimized)
+					setIsLoading(false)
+				})
+				.catch((err) => {
+					console.error('Image optimization Failed:', err)
+					setIsLoading(false)
+				})
 		} else {
-			setIsLoading(false) // If there's no image, stop loading
+			setIsLoading(false)
 		}
-		console.log(image)
 	}, [image])
-
 	const productCart = cart.find((items) => items._id === _id)
 
 	const handleAddToCart = () => {
@@ -70,7 +106,7 @@ const FoodCard = ({ product }) => {
 						<LazyLoad height={200} offset={100}>
 							<img
 								className='w-full h-48 object-cover rounded-sm shadow-md'
-								src={image || 'https://via.placeholder.com/200'}
+								src={optimizedImage || 'https://via.placeholder.com/200'}
 								alt={name}
 								loading='lazy'
 								width={200}
