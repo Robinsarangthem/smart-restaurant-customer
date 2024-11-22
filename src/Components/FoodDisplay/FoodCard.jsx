@@ -134,7 +134,7 @@ const FoodCard = ({ product }) => {
 					{!productCart ? (
 						<Button
 							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px]'
-							onClick={addToCart(product)}
+							onClick={() => addToCart(product)}
 						>
 							<div className='flex items-center gap-2'>
 								<PlusCircle size={17} /> Add
