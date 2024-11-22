@@ -27,6 +27,7 @@ function Home() {
 		queryKey: ['category'],
 		queryFn: fetchingCategory,
 		staleTime: 1000 * 60 * 5,
+		cacheTime: 1000 * 60 * 30,
 	})
 
 	useEffect(() => {
@@ -48,6 +49,9 @@ function Home() {
 	return (
 		<main>
 			<section>
+				{/* <h1 className='text-center py-3 md:text-	xl font-medium bg-gradient-to-r from-orange-500 to-orange-700 bg-clip-text text-transparent text-lg	'>
+					Welcome to Achaathak - Your Destination for Delicious Food
+				</h1> */}
 				<Search />
 				<div>
 					<Suspense fallback={<SkeletonFallback />}>

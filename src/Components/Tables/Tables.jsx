@@ -93,7 +93,7 @@ export default function Tables() {
 				{!isSentOTP && (
 					<div className=' pb-[50px]'>
 						<h2
-							className=' text-3xl bg-gradient-to-br bg- w-max text-transparent bg-clip-text from-orange-500 to-orange-700 drop-shadow-md
+							className=' text-3xl bg-gradient-to-br  w-max text-transparent bg-clip-text from-orange-500 to-orange-700 drop-shadow-md
 						font-bold tracking-wide'
 						>
 							Welcome!

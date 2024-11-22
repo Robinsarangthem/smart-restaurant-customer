@@ -23,9 +23,9 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
-import ScrollToTop from '@/Element/ScrollToTop'
 import rooftopcafe from './../../assets/Images/rooftopcafe.jpg'
 import extd from '../../assets/Images/eXtd.1902.jpg'
+import RoofTo2pCafe from './RoofTopCafe'
 import RoofTopCafe from './RoofTopCafe'
 const FoodDisplay = ({ category }) => {
 	const { data, isLoading } = useFoodList()
@@ -119,7 +119,7 @@ const FoodDisplay = ({ category }) => {
 	const mobileSpeed = isMobile ? 300 : 500
 
 	return (
-		<div>
+		<>
 			<div className=' flex items-center justify-center   mt-2   '>
 				<div className='	flex items-center	gap-2  p-[5px] bg-customWhite rounded-md font-sans shadow-md'>
 					<img
@@ -270,7 +270,7 @@ const FoodDisplay = ({ category }) => {
 					</div>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }
 

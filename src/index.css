@@ -85,6 +85,7 @@
 }
 html {
 	scroll-behavior: smooth;
+	font-display: swap;
 }
 
 .containerClass {

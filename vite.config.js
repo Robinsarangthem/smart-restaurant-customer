@@ -10,6 +10,7 @@ export default defineConfig({
 			protocolImports: true,
 		}),
 	],
+
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
@@ -24,8 +25,14 @@ export default defineConfig({
 			compress: {
 				drop_console: true, // Removes console logs from production build
 				drop_debugger: true, // Removes debugger statements
+				unused: true,
+			},
+			mangle: true,
+			output: {
+				comments: false,
 			},
 		},
+
 		sourcemap: false,
 		target: 'esnext',
 	},

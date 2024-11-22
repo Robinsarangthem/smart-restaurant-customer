@@ -10,6 +10,7 @@ import { PlusCircle } from 'lucide-react'
 import { Button } from '../ui/button'
 import FoodCardSkeleton from '../FoodDisplay/FoodCardSkeleton'
 import QuantityButton from '@/Element/QuantityButton'
+import NoResults from './NoResultsFound'
 
 const fetchSearchResults = async (foodName) => {
 	try {
@@ -18,8 +19,11 @@ const fetchSearchResults = async (foodName) => {
 
 		return response.data?.food
 	} catch (error) {
-		console.error('Error fetching search results:', error)
-		throw new Error('Error fetching search results')
+		console.error('Error fetching search results:', error.response.data.message)
+		throw new Error(
+			'Error fetching search results',
+			error.response?.data.message
+		)
 	}
 }
 
@@ -33,7 +37,7 @@ export default function SearchResults() {
 
 	const {
 		data: searchResults,
-		error,
+		isError,
 		isLoading,
 	} = useQuery({
 		queryKey: ['searchResults ', foodName],
@@ -45,10 +49,7 @@ export default function SearchResults() {
 		refetchOnWindowFocus: false, // Don't refetch when the window regains focus
 		retry: 1,
 	})
-	console.log('search Results', searchResults)
-	if (error) {
-		return <div>{error.message} </div>
-	}
+
 	return (
 		<div className='p-2'>
 			<h1 className='px-4 md:px-5 py-5 font-semibold text-lg md:text-2xl flex gap-3'>

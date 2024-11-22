@@ -7,6 +7,7 @@ import React, {
 } from 'react'
 import { Axios } from '../../utils/axiosSetup'
 import { useQuery } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const FoodContext = createContext(null)
 export const FoodListProvider = ({ children }) => {
@@ -23,9 +24,8 @@ export const FoodListProvider = ({ children }) => {
 		},
 		staleTime: 5 * 60 * 1000,
 		cacheTime: 30 * 60 * 1000,
-		enabled: foodList.length === 0,
+		enabled: true,
 	})
-
 	useEffect(() => {
 		if (isSuccess) {
 			setFoodList(data)
@@ -44,6 +44,11 @@ export const FoodListProvider = ({ children }) => {
 		}
 	}, [foodList, isLoading, isError, error, isSuccess, setFoodList])
 
-	return <FoodContext.Provider value={allData}>{children}</FoodContext.Provider>
+	return (
+		<>
+			<FoodContext.Provider value={allData}>{children}</FoodContext.Provider>
+			<ReactQueryDevtools initialIsOpen={false} />
+		</>
+	)
 }
 export default FoodContext
