@@ -12,7 +12,11 @@ const CartPage = ({
 	onIncrease,
 	onDecrease,
 	deleteCart,
+	clearCart,
+	// handleOrderCreated,
+	// isPending,
 }) => {
+	// console.log('handle', handleOrderCreated)
 	const navigate = useNavigate()
 
 	const handleNavigateHome = () => {
@@ -50,6 +54,10 @@ const CartPage = ({
 						<div className='lg:col-span-4 mt-8 lg:mt-0'>
 							<OrderSummary
 								totalAmount={getTotalAmount}
+								// handleOrderCreated={handleOrderCreated}
+								cartItems={cartItems}
+								clearCart={clearCart}
+								// isPending={isPending}
 								// handleCheckout={handleCheckout}
 							/>
 						</div>

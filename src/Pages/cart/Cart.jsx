@@ -26,51 +26,52 @@ const Cart = () => {
 	const orders = orderlist?.data?.orders || []
 	const totalOrderLength = orders.length === 0
 
-	const handlerPayment = () => {
-		const options = {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}
+	// const handlerPayment = () => {
+	// 	const options = {
+	// 		headers: {
+	// 			Authorization: `Bearer ${token}`,
+	// 		},
+	// 	}
 
-		const dataToSend = cart.map((Item) => {
-			return {
-				// foodName: Item.name,
-				foodId: Item._id,
-				quantity: Item.quantity,
-			}
-		})
-		return Axios.post(
-			'/api/order/create',
-			{
-				foodItems: dataToSend,
-			},
-			options
-		)
-	}
-	const {
-		mutate: handleOrderCreated,
-		isPending,
-		isError: isErrorOderCreated,
-	} = useMutation({
-		mutationKey: 'Payment',
-		mutationFn: handlerPayment,
-		onSuccess: ({ data }) => {
-			if (data.success) {
-				toast.success(data.msg || 'Order placed successfully')
-				clearCart()
-				navigate('/orders', { replace: true, state: data.order })
-			} else {
-				console.log(data.message)
-			}
-		},
-	})
-	if (isErrorOderCreated)
-		return (
-			<div className='text-center pt-[20%] text-xl font-medium text-red-500'>
-				Error creating order
-			</div>
-		)
+	// 	const dataToSend = cart.map((Item) => {
+	// 		return {
+	// 			// foodName: Item.name,
+	// 			foodId: Item._id,
+	// 			quantity: Item.quantity,
+	// 		}
+	// 	})
+	// 	console.log('data to send', dataToSend)
+	// 	return Axios.post(
+	// 		'/api/order/create',
+	// 		{
+	// 			foodItems: dataToSend,
+	// 		},
+	// 		options
+	// 	)
+	// }
+	// const {
+	// 	mutate: handleOrderCreated,
+	// 	isPending,
+	// 	isError: isErrorOderCreated,
+	// } = useMutation({
+	// 	mutationKey: 'Payment',
+	// 	mutationFn: handlerPayment,
+	// 	onSuccess: ({ data }) => {
+	// 		if (data.success) {
+	// 			toast.success(data.msg || 'Order placed successfully')
+	// 			clearCart()
+	// 			navigate('/orders', { replace: true, state: data.order })
+	// 		} else {
+	// 			console.log(data.message)
+	// 		}
+	// 	},
+	// })
+	// if (isErrorOderCreated)
+	// 	return (
+	// 		<div className='text-center pt-[20%] text-xl font-medium text-red-500'>
+	// 			Error creating order
+	// 		</div>
+	// 	)
 
 	// mainPart
 	const { data, isError, isLoading } = useFoodList()
@@ -84,6 +85,7 @@ const Cart = () => {
 			</div>
 		)
 	}
+	// console.log('orderCreated', handleOrderCreated)
 
 	return (
 		<CartPage
@@ -93,8 +95,8 @@ const Cart = () => {
 			onIncrease={addToCart}
 			onDecrease={removeFromCart}
 			clearCart={clearCart}
-			handleOrderCreated={handleOrderCreated}
-			isPending={isPending}
+			// handleOrderCreated={handleOrderCreated}
+			// isPending={isPending}
 			totalOrderLength={totalOrderLength}
 		/>
 	)

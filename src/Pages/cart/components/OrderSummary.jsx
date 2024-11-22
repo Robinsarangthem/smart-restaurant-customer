@@ -12,58 +12,105 @@ const OrderSummary = ({
 	totalAmount,
 	cartItems,
 	isPending,
-	handleOrderCreated,
+	// handleOrderCreated,
 	isErrorOderCreated,
-	totalOrderLength,
+	// totalOrderLength,
 	clearCart,
 }) => {
+	// console.log('total amount', totalAmount)
+	// console.log(cartItems)
+	// console.log('orderSummery ', handleOrderCreated)
 	const { token } = useAuth()
+	// const { clearCart } = useStore()
 
 	if (isErrorOderCreated) {
 		return toast.error(error.message)
 	}
 	const navigate = useNavigate()
-	const orderId = JSON.parse(localStorage.getItem('orderId'))
-	const dataToSend = (cartItems || []).map((Item) => {
-		return {
-			foodId: Item._id,
-			quantity: Item.quantity,
+	// const orderId = JSON.parse(localStorage.getItem('orderId'))
+	// const dataToSend = (cartItems || []).map((Item) => {
+	// 	return {
+	// 		foodId: Item._id,
+	// 		quantity: Item.quantity,
+	// 	}
+	// })
+	const handlerPayment = () => {
+		const options = {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
 		}
-	})
 
-	const { mutate: handleAddOder, isPending: pendingAddOrder } = useMutation({
-		mutationKey: ['addOrder'],
-		mutationFn: () => {
-			return Axios.post(
-				'/api/order/addOrder',
-				{
-					orderId,
-					foodItems: dataToSend,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			)
-		},
+		const dataToSend = cartItems.map((Item) => {
+			return {
+				// foodName: Item.name,
+				foodId: Item._id,
+				quantity: Item.quantity,
+			}
+		})
+		console.log('data to send', dataToSend)
+		return Axios.post(
+			'/api/order/create',
+			{
+				foodItems: dataToSend,
+			},
+			options
+		)
+	}
+	const {
+		mutate: handleOrderCreated,
+		// isPending,
+		// isError: isErrorOderCreated,
+	} = useMutation({
+		mutationKey: 'Payment',
+		mutationFn: handlerPayment,
 		onSuccess: ({ data }) => {
-			console.log(data)
 			if (data.success) {
-				toast.success(data.msg)
-				clearCart()
+				console.log(data)
+				toast.success(data.msg || 'Order placed successfully')
 				navigate('/orders', { replace: true, state: data.order })
+				clearCart()
+				console.log('object')
+				console.log(data.order)
 			} else {
-				{
-					console.log('	data.message: ', data.message)
-				}
+				console.log(data.message)
 			}
 		},
-		onError: (error) => {
-			console.log('error', error.response?.data.message)
-			toast.error(error.response?.data.message)
-		},
 	})
+
+	// const { mutate: handleAddOder, isPending: pendingAddOrder } = useMutation({
+	// 	mutationKey: ['addOrder'],
+	// 	mutationFn: () => {
+	// 		return Axios.post(
+	// 			'/api/order/addOrder',
+	// 			{
+	// 				orderId,
+	// 				foodItems: dataToSend,
+	// 			},
+	// 			{
+	// 				headers: {
+	// 					Authorization: `Bearer ${token}`,
+	// 				},
+	// 			}
+	// 		)
+	// 	},
+	// 	onSuccess: ({ data }) => {
+	// 		console.log(data)
+	// 		if (data.success) {
+	// 			toast.success(data.msg)
+	// 			clearCart()
+	// 			navigate('/orders', { replace: true, state: data.order })
+	// 		} else {
+	// 			{
+	// 				console.log('	data.message: ', data.message)
+	// 			}
+	// 		}
+	// 	},
+	// 	onError: (error) => {
+	// 		console.log('error', error.response?.data.message)
+	// 		toast.error(error.response?.data.message)
+	// 	},
+	// })
 
 	return (
 		<div className='bg-white rounded-lg shadow-sm p-6'>
