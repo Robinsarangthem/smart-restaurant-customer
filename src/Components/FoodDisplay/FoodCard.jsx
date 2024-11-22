@@ -78,12 +78,12 @@ const FoodCard = ({ product }) => {
 
 	const handleAddToCart = () => {
 		addToCart(product)
-		toast.success('Added to Cart')
+		// toast.success('Added to Cart')
 	}
 
 	const handleRemoveFromCart = () => {
 		removeFromCart(product._id)
-		toast.success('Removed from Cart')
+		// toast.success('Removed from Cart')
 	}
 
 	const handleDeleteFromCart = () => {
@@ -134,7 +134,7 @@ const FoodCard = ({ product }) => {
 					{!productCart ? (
 						<Button
 							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px]'
-							onClick={handleAddToCart}
+							onClick={addToCart(product)}
 						>
 							<div className='flex items-center gap-2'>
 								<PlusCircle size={17} /> Add
