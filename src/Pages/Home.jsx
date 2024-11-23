@@ -42,7 +42,9 @@ function Home() {
 
 		// Navigate based on the new category (if "All", navigate to root)
 		navigate(
-			`/${newCategory === 'All' || category === newCategory ? '' : newCategory}`
+			`/category/${
+				newCategory === 'All' || category === newCategory ? '' : newCategory
+			}`
 		)
 	}
 

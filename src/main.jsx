@@ -32,8 +32,8 @@ const router = createBrowserRouter(
 		<Route element={<RootLayout />}>
 			{/* <Route element={<ProtectedRoute />}> */}
 			<Route element={<Layout />}>
-				<Route path='/' element={<Home />} />
-				<Route path=':category' element={<Home />} />
+				<Route index element={<Home />} />
+				<Route path='category/:category' element={<Home />} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='food/:foodId' element={<FoodDetail />} />
 				<Route path='/orders' element={<Orders />} />
@@ -41,8 +41,8 @@ const router = createBrowserRouter(
 				<Route path='/carts' element={<Cart />} />
 				<Route path='/search' element={<SearchResults />} />
 			</Route>
-			{/* </Route> */}
 			<Route path='*' element={<PageNotFound />} />
+			{/* </Route> */}
 			<Route>
 				<Route path='/tables/:id' element={<Tables />} />
 				<Route path='/landing' element={<WelcomePage />} />

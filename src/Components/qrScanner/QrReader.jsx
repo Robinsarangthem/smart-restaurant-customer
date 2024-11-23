@@ -89,7 +89,7 @@ const QrReader = () => {
 				<img
 					src={QrFrame}
 					alt='Qr Frame'
-					className='w-28 h-28 md:w-48 md:h-48'
+					className='w-48 h-48 md:w-48 md:h-48'
 				/>
 			</div>
 			{/* Show Data Result if scan is success */}
