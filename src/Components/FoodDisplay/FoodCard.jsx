@@ -7,51 +7,6 @@ import { PlusCircle } from 'lucide-react'
 import QuantityButton from '@/Element/QuantityButton'
 import { Skeleton } from '../ui/skeleton'
 import LazyLoad from 'react-lazyload'
-import { error } from 'console'
-
-const optimizeImage = async (
-	imageUrl,
-	maxWidth = 300,
-	maxHeight = 300,
-	quality = 0.8
-) => {
-	return new Promise((resolve, reject) => {
-		const img = new Image()
-		img.src = imageUrl
-		img.crossOrigin = 'anonymous' // To handle cross-origin images
-
-		img.onload = () => {
-			const canvas = document.createElement('canvas')
-			const ctx = canvas.getContext('2d')
-
-			let width = img.width
-			let height = img.height
-
-			// Maintain aspect ratio
-			if (width > height) {
-				if (width > maxWidth) {
-					height *= maxWidth / width
-					width = maxWidth
-				}
-			} else {
-				if (height > maxHeight) {
-					width *= maxHeight / height
-					height = maxHeight
-				}
-			}
-
-			canvas.width = width
-			canvas.height = height
-			ctx.drawImage(img, 0, 0, width, height)
-
-			// Convert canvas content to a compressed Data URL
-			const optimizedDataUrl = canvas.toDataURL('image/jpeg', quality)
-			resolve(optimizedDataUrl)
-		}
-
-		img.onerror = () => reject('Image failed to load.')
-	})
-}
 
 const FoodCard = ({ product }) => {
 	const { _id, image, description, name, price } = product
@@ -61,29 +16,42 @@ const FoodCard = ({ product }) => {
 	// Preload image when image URL is available
 	useEffect(() => {
 		if (image) {
-			optimizeImage(image)
-				.then((optimized) => {
-					setOptimizeImage(optimized)
-					setIsLoading(false)
-				})
-				.catch((err) => {
-					console.error('Image optimization Failed:', err)
-					setIsLoading(false)
-				})
-		} else {
-			setIsLoading(false)
+			// Create a new Worker instance
+			const worker = new Worker(
+				new URL('../../worker/imageWorker.js', import.meta.url)
+			)
+
+			// Send message to the Worker
+			worker.postMessage({
+				image,
+				maxWidth: 300, // Maximum width for resizing
+				maxHeight: 300, // Maximum height for resizing
+				quality: 0.8, // Compression quality
+			})
+			// Handle the response from the Worker
+			worker.onmessage = ({ data }) => {
+				if (data.optimizedDataUrl) {
+					setOptimizeImage(data.optimizedDataUrl)
+				} else if (data.error) {
+					console.error('Image optimization failed:', data.error)
+				}
+				setIsLoading(false)
+			}
+
+			// Cleanup the Worker on component unmount
+			return () => {
+				worker.terminate()
+			}
 		}
 	}, [image])
 	const productCart = cart.find((items) => items._id === _id)
 
 	const handleAddToCart = () => {
 		addToCart(product)
-		// toast.success('Added to Cart')
 	}
 
 	const handleRemoveFromCart = () => {
 		removeFromCart(product._id)
-		// toast.success('Removed from Cart')
 	}
 
 	const handleDeleteFromCart = () => {
@@ -98,10 +66,7 @@ const FoodCard = ({ product }) => {
 			<Link to={`/food/${_id}`}>
 				<div className='relative aspect-w-16 aspect-h-9'>
 					{isLoading ? (
-						<Skeleton
-							variant='rectangle'
-							className='w-full h-48 overflow-hidden'
-						/>
+						<Skeleton variant='rectangle' className='w-full h-48 ' />
 					) : (
 						<LazyLoad height={200} offset={100}>
 							<img
@@ -109,8 +74,8 @@ const FoodCard = ({ product }) => {
 								src={optimizedImage || 'https://via.placeholder.com/200'}
 								alt={name}
 								loading='lazy'
-								width={200}
-								height={200}
+								width={100}
+								height={100}
 							/>
 						</LazyLoad>
 					)}
