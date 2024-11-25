@@ -75,18 +75,15 @@ export default function SearchResults() {
 						return (
 							<div
 								key={idx}
-								className='p-1 bg-customWhite shadow-md rounded-lg   	'
+								className=' bg-customWhite shadow-md rounded-lg overflow-hidden  	'
 							>
 								<Link to={`/food/${results._id}`}>
 									<div className='relative aspect-w-16 aspect-h-9'>
 										{isLoading ? (
-											<Skeleton
-												variant='rectangle'
-												className='w-full h-48 rounded-[10px]'
-											/>
+											<Skeleton variant='rectangle' className='w-full h-48 ' />
 										) : (
 											<img
-												className='w-full h-48 object-cover rounded-sm shadow-md'
+												className='w-full h-48 object-cover '
 												src={results.image || 'https://via.placeholder.com/200'}
 												alt={results.name}
 												loading='lazy'
@@ -96,7 +93,7 @@ export default function SearchResults() {
 										)}
 									</div>
 								</Link>
-								<div className='p-1 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
+								<div className='p-2 mobile:p-2  md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 justify-between'>
 									<h2 className='text-sm  md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 										{results.name}
 									</h2>

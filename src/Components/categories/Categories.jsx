@@ -84,7 +84,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 					{categoryList?.list.map((menu, index) => (
 						<div key={index} className='flex items-center justify-center '>
 							<li
-								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 transform-gpu transition-transform duration-500 ease-in-out ${
+								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 md:mx-3 transform-gpu transition-transform duration-500 ease-in-out ${
 									category !== menu?.category
 										? 'bg-slate-100'
 										: 'bg-orange-400 text-slate-100 scale-110'

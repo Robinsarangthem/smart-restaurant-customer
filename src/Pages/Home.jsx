@@ -41,11 +41,7 @@ function Home() {
 		)
 
 		// Navigate based on the new category (if "All", navigate to root)
-		navigate(
-			`/category/${
-				newCategory === 'All' || category === newCategory ? '' : newCategory
-			}`
-		)
+		navigate(newCategory === 'All' ? '/' : `/category/${newCategory}`)
 	}
 
 	return (

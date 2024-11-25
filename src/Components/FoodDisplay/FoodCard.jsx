@@ -94,18 +94,18 @@ const FoodCard = ({ product }) => {
 	const truncatedDescription = descriptions.substring(0, 50)
 
 	return (
-		<div className='p-1 bg-customWhite shadow-md rounded-lg'>
+		<>
 			<Link to={`/food/${_id}`}>
 				<div className='relative aspect-w-16 aspect-h-9'>
 					{isLoading ? (
 						<Skeleton
 							variant='rectangle'
-							className='w-full h-48 rounded-[10px]'
+							className='w-full h-48 overflow-hidden'
 						/>
 					) : (
 						<LazyLoad height={200} offset={100}>
 							<img
-								className='w-full h-48 object-cover rounded-sm shadow-md'
+								className='w-full h-48 object-cover '
 								src={optimizedImage || 'https://via.placeholder.com/200'}
 								alt={name}
 								loading='lazy'
@@ -117,7 +117,7 @@ const FoodCard = ({ product }) => {
 				</div>
 			</Link>
 
-			<div className='p-1 mobile:p-2 md:p-3 gap-[10px] md:gap-3 grid grid-rows-2'>
+			<div className=' p-3 mobile:p-2 md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 overflow-hidden'>
 				<h2 className='text-[15px] md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 					{name}
 				</h2>
@@ -133,11 +133,11 @@ const FoodCard = ({ product }) => {
 					{/* Add or Update Cart Button */}
 					{!productCart ? (
 						<Button
-							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px]'
+							className='bg-orange-500  hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px]'
 							onClick={() => addToCart(product)}
 						>
-							<div className='flex items-center gap-2'>
-								<PlusCircle size={17} /> Add
+							<div className='flex items-center gap-1 text-sm'>
+								<PlusCircle size={15} /> Add
 							</div>
 						</Button>
 					) : (
@@ -150,7 +150,7 @@ const FoodCard = ({ product }) => {
 					)}
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

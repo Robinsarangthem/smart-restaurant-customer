@@ -4,7 +4,7 @@ import React from 'react'
 
 const CartItem = ({ item, onIncrease, onDecrease, onRemove, deleteCart }) => {
 	return (
-		<div className='p-2 border-b'>
+		<div className='p-1 border-b'>
 			<div className='flex items-center gap-4'>
 				{/* Product Image */}
 				<div className='w-20 h-20 min-w-20 rounded-lg overflow-hidden bg-gray-100'>

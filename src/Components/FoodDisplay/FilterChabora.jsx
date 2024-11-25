@@ -19,11 +19,11 @@ export default function FilterChabora({ product }) {
 	}, [product.image])
 	const productCart = cart.find((items) => items._id === product._id)
 	return (
-		<div className='p-1 bg-customWhite shadow-md rounded-lg '>
+		<div className=' bg-customWhite shadow-md rounded-lg overflow-hidden '>
 			<Link to={`/food/${product._id}`}>
 				<div className='relative'>
 					<img
-						className='w-full h-48 object-cover rounded-lg drop-shadow-md transform-gpu 	 transition-transform duration-200'
+						className='w-full h-48 object-cover  '
 						src={product.image || 'https://via.placeholder.com/200'}
 						alt={product.name}
 						loading='lazy'
@@ -57,8 +57,8 @@ export default function FilterChabora({ product }) {
 								toast.success('Added to Cart')
 							}}
 						>
-							<div className='flex items-center gap-2'>
-								<PlusCircle size={17} /> Add
+							<div className='flex items-center gap-1 text-sm'>
+								<PlusCircle size={15} /> Add
 							</div>
 						</Button>
 					)}

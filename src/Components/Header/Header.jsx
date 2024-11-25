@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../context'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
-import Logo from '../../assets/Images/Achaathak-removebg-preview (1).png'
+import Logo from '../../assets/Images/Achaathak (4).png'
 
 import table from '../../../src/assets/Images/coffee-table.png'
 
@@ -42,12 +42,12 @@ function Header() {
 					<NavLink
 						to='/'
 						onClick={handleOnClickToTop}
-						className=' flex items-center pt-3	 text-slate-800  font-semibold '
+						className=' flex items-center md:pb-2  text-slate-800  font-semibold '
 					>
 						<img
-							className='w-28 pt-2 sm:w-16 md:w-36 md:pt-2 '
+							className='w-28  sm:w-28 md:w-36  '
 							src={Logo}
-							alt=''
+							alt='Achaathak'
 						/>
 					</NavLink>
 				</div>
@@ -136,7 +136,7 @@ function Header() {
 								</NavLink>
 								<NavLink
 									to='/landing'
-									className='block px-3 rounded-md py-2  hover:bg-sky-600'
+									className='block px-3 rounded-md py-2  '
 									onClick={() => setIsToggle(!isToggle)}
 								>
 									<Button> Qr Scanner </Button>

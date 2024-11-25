@@ -9,7 +9,6 @@ import { useFoodList } from '../hooks/useFoodList'
 import { Button } from '../ui/button'
 import { PropagateLoader } from 'react-spinners'
 import FilterChabora from './FilterChabora'
-import Carousel from 'react-multi-carousel'
 const FoodCard = React.lazy(() => import('./FoodCard'))
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
@@ -238,13 +237,13 @@ const FoodDisplay = ({ category }) => {
 				>
 					{category === 'All' ? 'Menu ' : <p>{category}</p>}
 				</h1>
-				<div className='	place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 gap-4 p-2 mobile:p-5'>
+				<div className='	place-items-center grid grid-cols-2 mobile:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-5 gap-4 p-2 mobile:p-5 overflow-hidden'>
 					{productsWithCategory
 						.slice(0, displayedItems)
 						.map((product, index) => (
 							<div
 								key={product._id}
-								className='transform-gpu will-change-transform'
+								className='bg-customWhite overflow-hidden rounded-lg shadow-md transform-gpu will-change-transform'
 								style={{
 									contain: 'paint layout style',
 									backfaceVisibility: 'hidden',

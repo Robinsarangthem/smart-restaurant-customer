@@ -35,7 +35,7 @@ const RoofTopCafe = ({ product }) => {
 	}, [image])
 
 	return (
-		<div className='p-1 bg-customWhite shadow-md rounded-md   	'>
+		<div className=' bg-customWhite shadow-md rounded-xl overflow-hidden  	'>
 			<Link to={`/food/${_id}`}>
 				<div className='relative'>
 					{isLoading ? (
@@ -45,7 +45,7 @@ const RoofTopCafe = ({ product }) => {
 						/>
 					) : (
 						<img
-							className='w-full h-48 object-cover rounded-sm drop-shadow-md transform-gpu '
+							className='w-full h-48 object-cover  transform-gpu '
 							src={image || 'https://via.placeholder.com/200'}
 							alt={name}
 							width={200}
@@ -82,8 +82,8 @@ const RoofTopCafe = ({ product }) => {
 								toast.success('Added to Cart')
 							}}
 						>
-							<div className='flex items-center gap-2'>
-								<PlusCircle size={17} /> Add
+							<div className='flex items-center gap-1 text-sm'>
+								<PlusCircle size={15} /> Add
 							</div>
 						</Button>
 					)}
