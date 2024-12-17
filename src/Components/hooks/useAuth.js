@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import AuthContext from '../context/AuthContext.jsx'
+import AuthContext from '../../context/AuthContext.jsx'
 import { Axios } from '@/utils/axiosSetup.js'
 import { error } from 'console'
 

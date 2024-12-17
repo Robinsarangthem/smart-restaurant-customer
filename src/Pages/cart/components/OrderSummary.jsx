@@ -1,4 +1,4 @@
-import { useStore } from '@/Components/context'
+import { useStore } from '@/context'
 import useAuth from '@/Components/hooks/useAuth'
 import { Button } from '@/Components/ui/button'
 import { Axios } from '@/utils/axiosSetup'

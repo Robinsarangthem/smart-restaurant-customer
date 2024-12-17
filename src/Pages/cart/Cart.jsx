@@ -1,6 +1,6 @@
 // Cart.js
 import React from 'react'
-import { useStore } from '@/Components/context'
+import { useStore } from '@/context'
 import CartPage from './components/CartPage'
 import { useNavigate } from 'react-router'
 import { useMutation, useQuery } from '@tanstack/react-query'

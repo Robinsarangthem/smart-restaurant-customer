@@ -1,5 +1,5 @@
-import { FoodListProvider, StoreContextProvider } from '@/Components/context'
-import { AuthProvider } from '@/Components/context/AuthContext'
+import { FoodListProvider, StoreContextProvider } from '@/context'
+import { AuthProvider } from '@/context/AuthContext'
 import { Outlet } from 'react-router-dom'
 
 export default function RootLayout() {

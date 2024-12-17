@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { Axios } from '../../utils/axiosSetup'
+import { Axios } from '../utils/axiosSetup'
 import { json } from 'react-router-dom'
 const StoreContext = createContext()
 

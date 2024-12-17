@@ -7,7 +7,7 @@ const CustomPrevArrow = (props) => {
 	const { onClick } = props
 	return (
 		<div
-			className=' slick-prev slick-arrow  '
+			className=' slick-prev slick-arrow hidden md:block '
 			onClick={onClick}
 			style={{
 				display: 'flex', // Align icon inside the container
@@ -69,6 +69,7 @@ const Categories = ({ category, setCategory, categoryList }) => {
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 2,
+					arrows: false,
 				},
 			},
 		],
@@ -82,22 +83,25 @@ const Categories = ({ category, setCategory, categoryList }) => {
 			<div className='scroller no-scrollbar overflow-hidden px-[0px]'>
 				<Slider {...settings}>
 					{categoryList?.list.map((menu, index) => (
-						<div key={index} className='flex items-center justify-center '>
+						<ul className='list-none p-0' aria-label='Category selection'>
 							<li
-								className={` flex items-center justify-center rounded-lg drop-shadow-md m-2 md:mx-3 transform-gpu transition-transform duration-500 ease-in-out ${
+								key={menu?.id || index} // Prefer a unique id over index if possible
+								className={`flex items-center justify-center rounded-lg drop-shadow-md m-2 md:mx-3 transform-gpu transition-transform duration-500 ease-in-out ${
 									category !== menu?.category
 										? 'bg-slate-100'
 										: 'bg-orange-400 text-slate-100 scale-110'
 								} min-w-[6rem] md:min-w-44`}
 								onClick={() => setCategory(menu?.category)}
+								role='button' // Helps screen readers announce it as a button
+								tabIndex={0} // Makes it focusable for keyboard users
 							>
 								<div className='flex items-center p-2'>
-									<span className='text-[12px] mobile:text-sm	 font-medium drop-shadow-md'>
+									<span className='text-[12px] mobile:text-sm font-medium drop-shadow-md'>
 										{menu?.category}
 									</span>
 								</div>
 							</li>
-						</div>
+						</ul>
 					))}
 				</Slider>
 			</div>

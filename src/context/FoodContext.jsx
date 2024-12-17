@@ -5,7 +5,7 @@ import React, {
 	useMemo,
 	useState,
 } from 'react'
-import { Axios } from '../../utils/axiosSetup'
+import { Axios } from '../utils/axiosSetup'
 import { useQuery } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 

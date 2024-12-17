@@ -1,37 +1,40 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import plugin from 'tailwindcss/plugin'
+import tailwindcssAnimate from 'tailwindcss-animate' // Importing the animate plugin
+
+export default {
 	darkMode: ['class'], // Enable dark mode using 'class' strategy
 	content: [
-		'./pages/**/*.{js,jsx}', // Path to all pages
-		'./components/**/*.{js,jsx}', // Path to all components
-		'./app/**/*.{js,jsx}', // Path to app
-		'./src/**/*.{js,jsx}', // Path to source files
+		'./pages/**/*.{js,jsx,ts,tsx}', // Include .tsx if using TypeScript
+		'./components/**/*.{js,jsx,ts,tsx}',
+		'./app/**/*.{js,jsx,ts,tsx}',
+		'./src/**/*.{js,jsx,ts,tsx}',
 	],
 	theme: {
 		screens: {
-			mobile: '640px', // Mobile-first (default)
-			md: '768px', // Medium screens
-			lg: '1024px', // Large screens
-			xl: '1280px', // Extra large screens
-			'2xl': '1536px', // 2X large screens
+			mobile: '640px',
+			md: '768px',
+			lg: '1024px',
+			xl: '1280px',
+			'2xl': '1536px',
 		},
 		container: {
-			center: true,
-			padding: '1rem', // Default padding for mobile, can be adjusted for larger screens
+			center: 'true',
+			padding: '1rem',
 			screens: {
 				'2xl': '1400px',
-				xl: '1200px', // Slightly reduced for large screens
+				xl: '1200px',
 				lg: '1.5rem',
 				md: '1rem',
-				mobile: '0.5rem', // Reduce padding for mobile devices
+				mobile: '0.5rem',
 			},
 		},
 		extend: {
 			translate: {
-				'z-0': 'translateZ(0)', // Hardware acceleration for 3D transforms
+				'z-0': 'translateZ(0)',
 			},
 			willChange: {
-				transform: 'transform', // Only use for elements that animate often
+				transform: 'transform',
 			},
 			keyframes: {
 				slideLeftFade: {
@@ -75,12 +78,20 @@ module.exports = {
 					},
 				},
 				'accordion-down': {
-					from: { height: '0' },
-					to: { height: 'var(--radix-accordion-content-height)' },
+					from: {
+						height: '0',
+					},
+					to: {
+						height: 'var(--radix-accordion-content-height)',
+					},
 				},
 				'accordion-up': {
-					from: { height: 'var(--radix-accordion-content-height)' },
-					to: { height: '0' },
+					from: {
+						height: 'var(--radix-accordion-content-height)',
+					},
+					to: {
+						height: '0',
+					},
 				},
 			},
 			animation: {
@@ -104,6 +115,7 @@ module.exports = {
 				customWhite: '#FFFFFF',
 				customBlack: '#000000',
 				deeppurple: '#1c2938',
+				accessibleOrange: '#d97706',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -136,6 +148,16 @@ module.exports = {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
+				},
+				sidebar: {
+					DEFAULT: 'hsl(var(--sidebar-background))',
+					foreground: 'hsl(var(--sidebar-foreground))',
+					primary: 'hsl(var(--sidebar-primary))',
+					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+					accent: 'hsl(var(--sidebar-accent))',
+					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+					border: 'hsl(var(--sidebar-border))',
+					ring: 'hsl(var(--sidebar-ring))',
 				},
 			},
 			borderRadius: {
@@ -171,9 +193,6 @@ module.exports = {
 				},
 			})
 		},
-		require('tailwindcss-animate'), // Include the animation plugin for smooth transitions
+		tailwindcssAnimate, // Including the animation plugin properly using `import`
 	],
-	tailwindcss: {},
-	autoprefixer: {},
-	...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}), // Minify CSS in production
 }

@@ -2,7 +2,7 @@ import React, { Children, useEffect, useState } from 'react'
 import { createContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
-import { socket } from '../socket/socket'
+import { socket } from '../Components/socket/socket'
 
 const AuthContext = createContext(null)
 

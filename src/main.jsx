@@ -26,20 +26,23 @@ import Search from './Components/search/Search.jsx'
 import ProtectedRoute from './Components/ProtectedRoute.jsx'
 import { ToastContainer } from 'react-toastify'
 import SearchResults from './Components/search/SearchResults.jsx'
+import CustomerFoodList from './Components/customerSection/CustomerFoodList.jsx'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route element={<RootLayout />}>
 			{/* <Route element={<ProtectedRoute />}> */}
-			<Route element={<Layout />}>
-				<Route index element={<Home />} />
+			<Route path='/restaurant' element={<Layout />}>
+				<Route path=':restaurantSlug' element={<CustomerFoodList />} />
+
+				{/* <Route index element={<Home />} />
 				<Route path='category/:category' element={<Home />} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='food/:foodId' element={<FoodDetail />} />
 				<Route path='/orders' element={<Orders />} />
 				<Route path='/order_status' element={<OrderDetails />} />
 				<Route path='/carts' element={<Cart />} />
-				<Route path='/search' element={<SearchResults />} />
+				<Route path='/search' element={<SearchResults />} /> */}
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 			{/* </Route> */}

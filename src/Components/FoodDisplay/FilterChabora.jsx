@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useStore } from '../context'
+import { useStore } from '../../context'
 import { Button } from '../ui/button'
 import 'react-multi-carousel/lib/styles.css'
 import { PlusCircle } from 'lucide-react'
@@ -51,7 +51,7 @@ export default function FilterChabora({ product }) {
 						/>
 					) : (
 						<Button
-							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md text-sm mobile:text-base py-1 px-3 mobile:px-4 '
+							className='inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-semibold text-white bg-orange-600 border border-orange-700 rounded-md shadow hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400'
 							onClick={() => {
 								addToCart(product)
 								toast.success('Added to Cart')

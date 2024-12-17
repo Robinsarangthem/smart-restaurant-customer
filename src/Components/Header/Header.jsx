@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useStore } from '../context'
-import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { useStore } from '../../context'
+import { NavLink, Link, useNavigate, useParams } from 'react-router-dom'
 import Logo from '../../assets/Images/Achaathak (4).png'
 
 import table from '../../../src/assets/Images/coffee-table.png'
@@ -8,10 +8,14 @@ import table from '../../../src/assets/Images/coffee-table.png'
 import Logout from '../logout/Logout'
 import Hamburger from 'hamburger-react'
 import { Button } from '../ui/button'
+import { useQuery } from '@tanstack/react-query'
+import { getRestaurantBySlug } from '@/api/apiService'
 
-function Header() {
+function Header({ restaurant }) {
 	const [isToggle, setIsToggle] = useState(false)
+
 	const { cart, search, setSearch } = useStore()
+	console.log('restaurant', restaurant)
 
 	const cartItemCount = cart.length
 	const [tableNo, setTableNo] = useState()
@@ -26,6 +30,7 @@ function Header() {
 			behavior: 'smooth',
 		})
 	}
+
 	//
 	return (
 		<div className='w-full bg-customWhite sticky top-0 z-10 shadow-lg'>
@@ -45,10 +50,11 @@ function Header() {
 						className=' flex items-center md:pb-2  text-slate-800  font-semibold '
 					>
 						<img
-							className='w-28  sm:w-28 md:w-36  '
-							src={Logo}
+							className='w-[60px] h-[60px] p-2	 sm:w-28 md:w-36  '
+							src={restaurant?.logo}
 							alt='Achaathak'
 						/>
+						<span> {restaurant?.name} </span>
 					</NavLink>
 				</div>
 				<nav className='  relative flex items-center text-slate-700 '>
