@@ -6,7 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/Components/ui/card'
-import { ShoppingCart } from 'lucide-react'
+import { PlusIcon, ShoppingCart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -72,7 +72,7 @@ export default function FoodCard({ food }) {
 
 			<CardFooter>
 				<Button className='w-full' variant='default'>
-					<ShoppingCart className='mr-2 h-4 w-4' />
+					<PlusIcon className='mr-2 h-4 w-4' />
 					Add to Cart
 				</Button>
 			</CardFooter>

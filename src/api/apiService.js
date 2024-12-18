@@ -15,3 +15,8 @@ export const getFoodListByRestaurantId = async (restaurantId) => {
 	console.log(response)
 	return response.data
 }
+export const getAllCategoriesOfRestaurant = async (restaurantId) => {
+	const response = await Axios.get(`/api/category/list/${restaurantId}`)
+	console.log(response)
+	return response.data
+}

@@ -32,17 +32,19 @@ const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route element={<RootLayout />}>
 			{/* <Route element={<ProtectedRoute />}> */}
-			<Route path='/restaurant' element={<Layout />}>
-				<Route path=':restaurantSlug' element={<CustomerFoodList />} />
-
-				{/* <Route index element={<Home />} />
+			<Route path='/' element={<Layout />}>
+				<Route
+					path='restaurant/:restaurantSlug'
+					element={<CustomerFoodList />}
+				/>
+				<Route index element={<Home />} />
 				<Route path='category/:category' element={<Home />} />
 				<Route path='/contact' element={<Contact />} />
 				<Route path='food/:foodId' element={<FoodDetail />} />
 				<Route path='/orders' element={<Orders />} />
 				<Route path='/order_status' element={<OrderDetails />} />
 				<Route path='/carts' element={<Cart />} />
-				<Route path='/search' element={<SearchResults />} /> */}
+				<Route path='/search' element={<SearchResults />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
 			{/* </Route> */}

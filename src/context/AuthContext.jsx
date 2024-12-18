@@ -10,6 +10,9 @@ export function AuthProvider({ children }) {
 	const [isAuthenticated, setIsAuthenticated] = useState(
 		localStorage.getItem('token') ? true : false
 	)
+	const [restaurantDetails, setRestaurantDetails] = useState(
+		JSON.parse(localStorage.getItem('restaurantDetails'))
+	)
 	const params = useParams()
 
 	const [token, setToken] = useState(null)
@@ -33,7 +36,14 @@ export function AuthProvider({ children }) {
 
 	return (
 		<AuthContext.Provider
-			value={{ isAuthenticated, setIsAuthenticated, setToken, token, params }}
+			value={{
+				isAuthenticated,
+				setIsAuthenticated,
+				setToken,
+				token,
+				params,
+				restaurantDetails,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>
