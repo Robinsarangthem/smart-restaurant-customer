@@ -21,11 +21,13 @@ import WelcomePage from './Pages/welcomePage/WelcomePage.jsx';
 import './index.css';
 import VerifyOTP from './Pages/VerifyOTP.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ShowQRCodes from './Pages/ShowQRCodes.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout />}>
       {/* <Route element={<ProtectedRoute />}> */}
+      <Route path='/' element={<ShowQRCodes />} />
       <Route path='/restaurant/:restaurantSlug/:tableNo' element={<Layout />}>
         <Route index element={<CustomerFoodList />} />
         <Route path='cart' element={<Cart />} />

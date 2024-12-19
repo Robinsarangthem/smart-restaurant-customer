@@ -97,3 +97,10 @@ export const addOrder = async (data) => {
   const response = await Axios.put('/api/order/addOrder', data);
   return response.data;
 };
+
+export const getAllQRCodes = async (restaurantSlug) => {
+  const response = await Axios.get(
+    `/api/table/${restaurantSlug}/available-tables`
+  );
+  return response.data;
+};
