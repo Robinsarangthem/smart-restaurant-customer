@@ -72,7 +72,7 @@ export default function Order() {
 
   if (!orders || orders.length === 0) {
     return (
-      <div className='min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center px-4'>
+      <div className='min-h-screen  bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center px-4'>
         <h2 className='text-xl sm:text-2xl font-bold text-gray-900 mb-4 text-center'>
           No Orders Yet
         </h2>
@@ -91,8 +91,8 @@ export default function Order() {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-6 sm:py-8 px-3 sm:px-6 lg:px-8'>
-      <div className='max-w-7xl mx-auto'>
+    <div className='min-h-screen  bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-6 sm:py-8 px-3 sm:px-6 lg:px-8'>
+      <div className='max-w-lg mx-auto'>
         <h1 className='text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center'>
           Your Orders
         </h1>
