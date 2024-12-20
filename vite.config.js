@@ -21,6 +21,7 @@ export default defineConfig({
 			key: './smart-restaurant-privateKey.key',
 			cert: './smart-restaurant.crt',
 		},
+		port: 5175,
 	},
 	build: {
 		minify: 'terser', // Ensures Terser is used for minification
