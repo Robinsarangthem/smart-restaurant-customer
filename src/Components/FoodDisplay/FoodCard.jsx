@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useStore } from '../context'
+import { useStore } from '../../context'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
@@ -7,43 +7,15 @@ import { PlusCircle } from 'lucide-react'
 import QuantityButton from '@/Element/QuantityButton'
 import { Skeleton } from '../ui/skeleton'
 import LazyLoad from 'react-lazyload'
+import { AspectRatio } from '../ui/aspect-ratio'
+import { CloudinaryContext, Image, Transformation } from 'cloudinary-react'
 
-const FoodCard = ({ product }) => {
-	const { _id, image, description, name, price } = product
+const FoodCard = ({ product, isLoading }) => {
+	const { _id, image, description, name, price, publicId } = product
 	const { addToCart, deleteCart, cart, removeFromCart } = useStore()
-	const [isLoading, setIsLoading] = useState(true)
-	const [optimizedImage, setOptimizeImage] = useState(true)
-	// Preload image when image URL is available
-	useEffect(() => {
-		if (image) {
-			// Create a new Worker instance
-			const worker = new Worker(
-				new URL('../../worker/imageWorker.js', import.meta.url)
-			)
+	const [isLoaded, setIsLoaded] = useState(false)
+	const cloudName = 'ddd9fh8bf'
 
-			// Send message to the Worker
-			worker.postMessage({
-				image,
-				maxWidth: 300, // Maximum width for resizing
-				maxHeight: 300, // Maximum height for resizing
-				quality: 0.8, // Compression quality
-			})
-			// Handle the response from the Worker
-			worker.onmessage = ({ data }) => {
-				if (data.optimizedDataUrl) {
-					setOptimizeImage(data.optimizedDataUrl)
-				} else if (data.error) {
-					console.error('Image optimization failed:', data.error)
-				}
-				setIsLoading(false)
-			}
-
-			// Cleanup the Worker on component unmount
-			return () => {
-				worker.terminate()
-			}
-		}
-	}, [image])
 	const productCart = cart.find((items) => items._id === _id)
 
 	const handleAddToCart = () => {
@@ -58,30 +30,46 @@ const FoodCard = ({ product }) => {
 		deleteCart(product._id)
 		toast.success('Deleted from Cart')
 	}
-	const descriptions = product?.description || '' // Fallback to empty string if undefined
+	const descriptions = description || '' // Fallback to empty string if undefined
 	const truncatedDescription = descriptions.substring(0, 50)
+	console.log('loading', isLoaded)
 
 	return (
-		<>
+		<div>
 			<Link to={`/food/${_id}`}>
-				<div className='relative aspect-w-16 aspect-h-9'>
-					{isLoading ? (
-						<Skeleton variant='rectangle' className='w-full h-48 ' />
-					) : (
-						<LazyLoad height={200} offset={100}>
-							<img
-								className='w-full h-48 object-cover '
-								src={optimizedImage || 'https://via.placeholder.com/200'}
-								alt={name}
-								loading='lazy'
-								width={100}
-								height={100}
-							/>
-						</LazyLoad>
+				<div className='relative w-full h-auto aspect-w-16 aspect-h-9'>
+					{/* Show Skeleton Loader when image is still loading */}
+					{!isLoaded && (
+						<div className=' bg-gray-400  w-full flex items-center justify-center '>
+							<Skeleton className='h-[200px] w-full' />
+						</div>
 					)}
+
+					{/* Image with Lazy Loading */}
+					<LazyLoad height={200} offset={100}>
+						<Image
+							cloudName={cloudName}
+							publicId={publicId}
+							alt={name}
+							loading='lazy'
+							onLoad={() => {
+								setIsLoaded(true) // Set image loaded state
+							}}
+							onError={() => {
+								console.error('Image failed to load')
+							}}
+							className={`h-full w-full object-cover transition-opacity duration-500 ${
+								isLoaded ? 'opacity-100' : 'opacity-0'
+							}`}
+						>
+							{/* Responsive Transformations */}
+							<Transformation width='500' height='400' crop='scale' />
+							<Transformation fetchFormat='auto' />
+							<Transformation quality='auto' />
+						</Image>
+					</LazyLoad>
 				</div>
 			</Link>
-
 			<div className=' p-3 mobile:p-2 md:p-3 gap-[10px] md:gap-3 grid grid-rows-2 overflow-hidden'>
 				<h2 className='text-[15px] md:text-[17px] font-medium capitalize text-orange-800 drop-shadow-md'>
 					{name}
@@ -98,10 +86,10 @@ const FoodCard = ({ product }) => {
 					{/* Add or Update Cart Button */}
 					{!productCart ? (
 						<Button
-							className='bg-orange-500  hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px]'
+							className='inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-semibold text-white bg-orange-600 border border-orange-700 rounded-md shadow hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400'
 							onClick={() => addToCart(product)}
 						>
-							<div className='flex items-center gap-1 text-sm'>
+							<div className='flex items-center gap-1 text-sm text-white'>
 								<PlusCircle size={15} /> Add
 							</div>
 						</Button>
@@ -115,7 +103,7 @@ const FoodCard = ({ product }) => {
 					)}
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 

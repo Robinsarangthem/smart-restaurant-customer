@@ -26,6 +26,7 @@ import rooftopcafe from './../../assets/Images/rooftopcafe.jpg'
 import extd from '../../assets/Images/eXtd.1902.jpg'
 import RoofTo2pCafe from './RoofTopCafe'
 import RoofTopCafe from './RoofTopCafe'
+import { Box } from 'lucide-react'
 const FoodDisplay = ({ category }) => {
 	const { data, isLoading } = useFoodList()
 	const [displayedItems, setDisplayedItems] = useState(10) // Initial number of items
@@ -120,45 +121,47 @@ const FoodDisplay = ({ category }) => {
 	return (
 		<>
 			<div className=' flex items-center justify-center   mt-2   '>
-				<div className='	flex items-center	gap-2  p-[5px] bg-customWhite rounded-md font-sans shadow-md'>
-					<img
-						src={extd}
-						width={50}
-						height={50}
-						className=' w-[90px] h-[50px]  rounded-md'
-					/>
-					<h1 className='text-[12px]  p-2   text-customBlack  font-sans md:text-lg font-semibold md:text-center'>
-						eXtd.1902
-					</h1>
-				</div>
+				{filteredChaBora1902.length > 0 ? (
+					<div className='	flex items-center	gap-2  p-[5px] bg-customWhite rounded-md font-sans shadow-md'>
+						<img
+							src={extd}
+							width={50}
+							height={50}
+							className=' w-[90px] h-[50px]  rounded-md'
+						/>
+						<h1 className='text-[12px]  p-2   text-customBlack  font-sans md:text-lg font-semibold md:text-center'>
+							eXtd.1902
+						</h1>
+					</div>
+				) : null}
 			</div>
 
 			<div className='w-full   mx-auto 	'>
-				<Swiper
-					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
-					spaceBetween={10}
-					slidesPerView={isMobile ? 2 : 3}
-					navigation={!isMobile}
-					loop={true}
-					touchRatio={0.7}
-					// freeMode={true}
-					// resistanceRatio={0.85}
-					// watchOverflow={true}
-					className='rounded-md swiper-container'
-					breakpoints={{
-						320: { slidesPerView: 2, spaceBetween: 10 },
-						550: { slidesPerView: 2, spaceBetween: 8 },
-						640: { slidesPerView: 2, spaceBetween: 15 },
-						1024: { slidesPerView: 4, spaceBetween: 20 },
-						1280: { slidesPerView: 5, spaceBetween: 25 },
-					}}
-					speed={mobileSpeed}
-					touchEventsTarget='container'
-					touchStartPreventDefault={true}
-					virtual
-				>
-					{filteredChaBora1902?.length > 0 ? (
-						filteredChaBora1902?.map((product, idx) => (
+				{filteredChaBora1902?.length > 0 ? (
+					<Swiper
+						modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
+						spaceBetween={10}
+						slidesPerView={isMobile ? 2 : 3}
+						navigation={!isMobile}
+						loop={true}
+						touchRatio={0.7}
+						// freeMode={true}
+						// resistanceRatio={0.85}
+						// watchOverflow={true}
+						className='rounded-md swiper-container'
+						breakpoints={{
+							320: { slidesPerView: 2, spaceBetween: 10 },
+							550: { slidesPerView: 2, spaceBetween: 8 },
+							640: { slidesPerView: 2, spaceBetween: 15 },
+							1024: { slidesPerView: 4, spaceBetween: 20 },
+							1280: { slidesPerView: 5, spaceBetween: 25 },
+						}}
+						speed={mobileSpeed}
+						touchEventsTarget='container'
+						touchStartPreventDefault={true}
+						virtual
+					>
+						{filteredChaBora1902?.map((product, idx) => (
 							<SwiperSlide
 								key={idx}
 								className=' px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out '
@@ -166,68 +169,73 @@ const FoodDisplay = ({ category }) => {
 							>
 								<FilterMemoized product={product} isLoading={isLoading} />
 							</SwiperSlide>
-						))
-					) : (
-						<div className='text-customRed text-center'>
+						))}
+					</Swiper>
+				) : (
+					<div className='flex flex-col items-center py-5'>
+						<Box className='h-16 w-16 text-gray-400 mb-2' />
+						<p className='text-customRed text-lg font-semibold'>
 							No products available
-						</div> // Fallback message
-					)}
-				</Swiper>
+						</p>
+					</div>
+				)}
 			</div>
 			<div className='border-b-4 border-orange-400'></div>
-			<div className=' flex items-center justify-center  mx-2 mt-2  '>
-				<div className='	flex items-center	gap-2  p-[3px] bg-customWhite rounded-md font-sans shadow-md'>
-					<img
-						src={rooftopcafe}
-						width={90}
-						height={90}
-						className=' w-[90px] h-[60px]  rounded-md'
-					/>
-					<h2 className='uppercase text-[12px]  p-2	  text-customBlack  font-sans md:text-lg font-semibold md:text-center	'>
-						cha bora
-					</h2>
-				</div>
+			<div className='flex items-center justify-center mx-2 mt-2'>
+				{filteredRoofTopCafe?.length > 0 ? (
+					<div className='flex items-center gap-2 p-[3px] bg-customWhite rounded-md font-sans shadow-md'>
+						<img
+							src={rooftopcafe}
+							width={90}
+							height={90}
+							className='w-[90px] h-[60px] rounded-md'
+							alt='Rooftop Cafe'
+						/>
+						<h2 className='uppercase text-[12px] p-2 text-customBlack font-sans md:text-lg font-semibold md:text-center'>
+							cha bora
+						</h2>
+					</div>
+				) : null}
 			</div>
 			<div className='w-full   mx-auto px-1 	'>
-				<Swiper
-					modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
-					spaceBetween={10}
-					slidesPerView={isMobile ? 2 : 3}
-					navigation={!isMobile}
-					loop={true}
-					touchRatio={0.7}
-					// freeMode={true}
-					// resistanceRatio={0.85}
-					// watchOverflow={true}
-					className='rounded-md swiper-container'
-					breakpoints={{
-						320: { slidesPerView: 2, spaceBetween: 10 },
-						550: { slidesPerView: 2, spaceBetween: 8 },
-						// 640: { slidesPerView: 3, spaceBetween: 15 },
-						1024: { slidesPerView: 4, spaceBetween: 20 },
-						1280: { slidesPerView: 5, spaceBetween: 25 },
-					}}
-					speed={mobileSpeed}
-					touchEventsTarget='container'
-					touchStartPreventDefault={true}
-					virtual
-				>
-					{filteredRoofTopCafe?.length > 0 ? (
-						filteredRoofTopCafe.map((product, idx) => (
+				{filteredRoofTopCafe?.length > 0 ? (
+					<Swiper
+						modules={[Navigation, Pagination, Autoplay, FreeMode, Virtual]}
+						spaceBetween={10}
+						slidesPerView={isMobile ? 2 : 3}
+						navigation={!isMobile}
+						loop={true}
+						touchRatio={0.7}
+						className='rounded-md swiper-container'
+						breakpoints={{
+							320: { slidesPerView: 2, spaceBetween: 10 },
+							550: { slidesPerView: 2, spaceBetween: 8 },
+							1024: { slidesPerView: 4, spaceBetween: 20 },
+							1280: { slidesPerView: 5, spaceBetween: 25 },
+						}}
+						speed={mobileSpeed}
+						touchEventsTarget='container'
+						touchStartPreventDefault={true}
+						virtual
+					>
+						{filteredRoofTopCafe.map((product) => (
 							<SwiperSlide
-								key={idx}
-								className=' px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out '
+								key={product.id || product.name} // Use a unique key (fallback to product.name if no id)
+								className='px-[8px] p-2 transform-gpu transition-transform duration-500 ease-in-out'
 								style={{ backfaceVisibility: 'hidden' }}
 							>
 								<RoofTopCafe product={product} isLoading={isLoading} />
 							</SwiperSlide>
-						))
-					) : (
-						<div className='text-customRed text-center'>
+						))}
+					</Swiper>
+				) : (
+					<div className='flex flex-col items-center py-5'>
+						<Box className='h-16 w-16 text-gray-400 mb-2' />
+						<p className='text-customRed text-lg font-semibold'>
 							No products available
-						</div> // Fallback message
-					)}
-				</Swiper>
+						</p>
+					</div>
+				)}
 			</div>
 			<div className='border-b-4 border-orange-400 mx-8'></div>
 			<Suspense fallback={<PropagateLoader />}>

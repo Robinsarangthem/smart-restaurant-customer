@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useFoodList } from '../hooks/useFoodList'
-import { useStore } from '../context'
+import { useStore } from '../../context'
 import {
 	ArrowLeft,
 	Minimize,

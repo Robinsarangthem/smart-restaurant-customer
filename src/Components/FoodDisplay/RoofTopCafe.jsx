@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useStore } from '../context'
+import { useStore } from '../../context'
 import { Link } from 'react-router-dom'
 import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
@@ -76,7 +76,7 @@ const RoofTopCafe = ({ product }) => {
 						/>
 					) : (
 						<Button
-							className='bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-md min-w-[40px] mobile:min-w-[100px] '
+							className='inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-semibold text-white bg-orange-600 border border-orange-700 rounded-md shadow hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400'
 							onClick={() => {
 								addToCart(product)
 								toast.success('Added to Cart')
