@@ -46,6 +46,7 @@ const router = createBrowserRouter(
 				<Route path='/carts' element={<Cart />} />
 				<Route path='/search' element={<SearchResults />} /> */}
       </Route>
+      <Route path='/admin/*' element={null} /> {/* Ignore admin routes */}
       <Route path='*' element={<PageNotFound />} />
       {/* </Route> */}
       <Route>
